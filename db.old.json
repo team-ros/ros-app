@@ -1,0 +1,54 @@
+{
+    "directorys": [
+
+        {
+            "id": 1,
+            "parentid": 10,
+            "directory": "/burokratie",
+            "entrys": 3,
+            "name": "buchhaltung.docx",
+            "fullPath": "/documents/buchhaltung.docx",
+            "type": "file",
+            "size": 12345,
+            "mimeType": "application/vnd.openxmlformats-officedocument. wordprocessingml.document",
+            "url": "https://cdn.ros-cloud.at/1e70c31f-00b1-4674-9464-ffb4707fb420",
+            "access-code": "e9e9e86c-619a-42d0-b85f-469a61a8005c"
+        },
+        {
+            "id": 2,
+            "parentid": 20,
+            "directory": "/privat",
+            "entrys": 1,
+            "name": "foto.jpg",
+            "fullPath": "/documents/foto.jpg",
+            "type": "file",
+            "size": 34313,
+            "mimeType": "image/jpeg",
+            "url": "https://cdn.ros-cloud.at/8e4c6504-b4e3-4d2d-b118-22e3d4dec53f",
+            "access-code": "48c64c8d-3353-4032-854f-c3e856ef0dc4"
+        },
+        {
+            "id": 3,
+            "parentid": 30,
+            "directory": "/jobs",
+            "entrys": 53,
+            "name": "video.mp4",
+            "fullPath": "/documents/video.mp4",
+            "type": "file",
+            "size": 4567890,
+            "mimeType": "video/mp4",
+            "url": "https://cdn.ros-cloud.at/ade1ba4e-059e-452e-9776-f8d46a7b5e39",
+            "access-code": "cc416167-45dc-438c-b7ee-3ace6436ef0c"
+        },
+        {
+            "id": 4,
+            "parentid": 40,
+            "directory": "/documents",
+            "entrys": 3,
+            "name": "Unterordner",
+            "fullPath": "/documents/Unterordner",
+            "type": "directory",
+            "size": 4567890
+        }
+    ]
+}

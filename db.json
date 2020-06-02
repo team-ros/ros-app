@@ -1,0 +1,69 @@
+{
+    "directorys": [
+
+        {
+            "id": "d1",
+            "parentid": "",
+            "name": "/burokratie",
+            "entrys": 3,
+            "type": "directory",
+            "size": 123456
+        },
+        {
+            "id": "d2",
+            "parentid": "",
+            "name": "/privat",
+            "entrys": 3,
+            "type": "directory",
+            "size": 12345
+        },
+        {
+            "id": "d3",
+            "parentid": "d2",
+            "name": "Hausübungen_2019",
+            "entrys": 3,
+            "type": "directory",
+            "size": 12345
+        }
+    ],
+    "files": [
+
+        {
+            "id": "f1",
+            "parentid": "d1",
+            "type": ".docx",
+            "name": "Hausübung_Cerny"
+        },
+        {
+            "id": "f2",
+            "parentid": "d2d3",
+            "type": ".pdf",
+            "name": "Hausübung_Zainzinger"
+        },
+        {
+            "id": "f3",
+            "parentid": "d2",
+            "type": ".pdf",
+            "name": "Lebenslauf"
+        },
+        {
+            "id": "f4",
+            "parentid": "d2",
+            "type": ".pdf",
+            "name": "Motivationsschreiben"
+        },
+        {
+            "id": "f5",
+            "parentid": "d2",
+            "type": ".pdf",
+            "name": "Referat-Zusammenfassung"
+        },
+        {
+            "id": "f6",
+            "parentid": "d3",
+            "type": ".pdf",
+            "name": "Steuerausgleich"
+        }
+        
+    ]
+}
