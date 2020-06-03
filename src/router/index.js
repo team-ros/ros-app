@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login'
 import Dashboard from "../views/Dashboard";
 import Register from "../views/Register";
+import PasswordRecovery from "../views/PasswordRecovery";
 
 Vue.use(VueRouter)
 
@@ -21,8 +22,13 @@ Vue.use(VueRouter)
       path: '/Register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/PasswordRecovery',
+      name: 'PasswordRecovery',
+      component: PasswordRecovery
     }
-]
+  ]
 
 const router = new VueRouter({
   routes

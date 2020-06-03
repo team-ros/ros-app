@@ -1,5 +1,5 @@
 <template>
-    <div style="background-color: #eee;  min-height: 100%;">
+    <div style="min-height: 100%;">
         <LoginMask></LoginMask>
     </div>
 </template>
