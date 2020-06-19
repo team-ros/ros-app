@@ -7,10 +7,7 @@
 
       <v-col class="col-12 mt-6">
         <v-card flat class="pa-4">
-          <h1
-            style="text-align: center; font-size: 25px"
-            class="mb-8"
-          >
+          <h1 style="text-align: center; font-size: 25px" class="mb-8">
             Willkommen!
           </h1>
 
@@ -31,9 +28,9 @@
           ></v-text-field>
 
           <router-link to="/passwordrecovery">
-          <p style="font-size: 12px; text-align: right">
-            Passwort vergessen?
-          </p>
+            <p style="font-size: 12px; text-align: right">
+              Passwort vergessen?
+            </p>
           </router-link>
 
           <div style="margin-top: 150px"></div>
@@ -47,7 +44,7 @@
             >Login
           </v-btn>
 
-          <div class="mt-4" >
+          <div class="mt-4">
             <span
               class="mr-2"
               style="font-size: 12px;float: left; margin-top: 4px;"

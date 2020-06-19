@@ -1,5 +1,11 @@
 <template>
   <v-container class="pa-10">
+
+    <router-link to="/login">
+      <v-btn icon>
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+    </router-link>
     <v-row>
       <v-col class="col-12 mt-6">
         <h1 class="mb-8">Registrieren</h1>
