@@ -1,6 +1,5 @@
 <template>
   <v-container class="pa-10">
-
     <router-link to="/login">
       <v-btn icon>
         <v-icon>mdi-arrow-left</v-icon>
