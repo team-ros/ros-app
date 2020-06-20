@@ -20,4 +20,10 @@ export default {
   #app {
       font-family: 'Montserrat', sans-serif;
   }
+  h1,h2,h3,h4{
+  color: black;
+  }
+  a{
+  color: #0044b2;
+  }
 </style>
