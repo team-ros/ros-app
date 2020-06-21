@@ -1,57 +1,76 @@
 <template>
-  <div>
-    <v-card flat height="200px" tile>
-      <v-app-bar color="#1565C0">
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-app-bar-nav-icon @click="dialog = true"></v-app-bar-nav-icon>
-      </v-app-bar>
-      <v-dialog
-        overlay-color="#E0E0E0"
-        overlay-opacity="1"
-        max-width="290"
-        v-model="dialog"
-      >
-        <v-card class="pa-12" color="#E0E0E0">
-          <h3>Projektwebsite</h3>
-          <a href=""><p>ROS Cloud</p></a>
-
-          <h3>Social Media</h3>
-          <v-icon style="float: left; margin-right: 10px"> {{ svgInstagram }}</v-icon
-          ><a href="https://www.instagram.com/ros_cloud/"> <p>Instagram</p></a>
-          <v-icon style="float: left; margin-right: 10px"> {{ svgTwitter }}</v-icon>
-          <a href="https://twitter.com/cloud_ros/"><p>Twitter</p></a>
-          <v-icon style="float: left; margin-right: 10px"> {{ svgLinkedIn }}</v-icon>
-          <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/"
-            ><p>LinkedIn</p></a
-          >
-          <h3> Hilfe </h3>
-          <v-icon style="float: left; margin-right: 10px"> {{ svgImpressum }}</v-icon
-        ><router-link to="/impressum"> <p>Impressum</p></router-link>
-          <v-icon style="float: left; margin-right: 10px"> {{ svgSupport }}</v-icon
-          ><router-link to="/support"> <p>Support</p></router-link>
+    <div>
+        <div class="pa-5" style="background: #0044b2; height: 60px; width: 100%">
+            <span style="color: white; font-size: 18px" class="mx-2"> ROS </span>
+            <span @click="dialog=true" style="color: white; font-size: 18px; float: right " class="mx-2"> <i
+                    class="fas fa-bars"></i> </span>
+        </div>
 
 
-        </v-card>
-      </v-dialog>
-    </v-card>
-  </div>
+        <v-dialog
+                style="background: red!important;"
+                overlay-opacity="1"
+                max-width="290"
+                v-model="dialog"
+
+        >
+
+            <h2 class="mt-12 mb-4">Projektwebsite</h2>
+            <a href=""><p>ROS Cloud</p></a>
+            <h2 class="mt-12 mb-4" >Social Media</h2>
+            <a href="https://www.instagram.com/ros_cloud/"><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-instagram"></i><p>Instagram</p></a>
+            <a href="https://twitter.com/cloud_ros/"><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-twitter"></i><p>Twitter</p></a>
+            <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/"
+            ><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-linkedin-in"></i><p>LinkedIn</p></a
+            >
+            <h2 class="mt-12 mb-4"> Hilfe </h2>
+            <router-link to="/impressum"><p>Impressum</p></router-link>
+            <router-link to="/support"><p>Support</p></router-link>
+
+
+        </v-dialog>
+
+    </div>
 </template>
 
 <script>
-export default {
-  name: "DashboardHeader",
-  data: () => ({
-    dialog: true,
-    svgInstagram: "mdi mdi-instagram",
-    svgLinkedIn: "mdi mdi-linkedin",
-    svgTwitter: "mdi mdi-twitter",
-    svgImpressum: "mdi mdi-information-outline",
-    svgSupport: "mdi mdi-email-outline"
-  })
-};
+    export default {
+        name: "DashboardHeader",
+        data: () => ({
+            dialog: false,
+            svgInstagram: "mdi mdi-instagram",
+            svgLinkedIn: "mdi mdi-linkedin",
+            svgTwitter: "mdi mdi-twitter",
+            svgImpressum: "mdi mdi-information-outline",
+            svgSupport: "mdi mdi-email-outline"
+        })
+    };
 </script>
 
-<style scoped></style>
+<style>
+
+    .v-dialog, v-dialog--active {
+        position: absolute !important;
+        top: 0px !important;
+        max-width: 100% !important;
+        margin: 50px !important;
+        border-radius: 0px !important;
+        box-shadow: none !important;
+        color: white !important;
+
+
+
+    }
+
+    .v-overlay__scrim{
+        background-image: url("https://images.wallpapersden.com/image/download/huawei-4k-stock-abstract_66336_1920x1080.jpg");
+        background-size: cover;
+    }
+
+    a, h2 {
+        text-decoration: none;
+        color: white !important;
+    }
+
+
+</style>

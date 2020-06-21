@@ -1,4 +1,4 @@
-# ros_spielerei
+# ros-app
 
 ## Project setup
 ```

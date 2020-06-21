@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <div>
     <DashboardHeader></DashboardHeader>
     <DashboardFooter></DashboardFooter>
-  </v-container>
+    </div>
 </template>
 
 <script>
