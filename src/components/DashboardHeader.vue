@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="pa-5" style="background: #0044b2; height: 60px; width: 100%">
+        <div class="pa-5" style="background: #0044b2; height: 60px; width: 100%;">
             <span style="color: white; font-size: 18px" class="mx-2"> ROS </span>
             <span @click="dialog=true" style="color: white; font-size: 18px; float: right " class="mx-2"> <i
                     class="fas fa-bars"></i> </span>

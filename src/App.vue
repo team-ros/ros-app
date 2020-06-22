@@ -11,7 +11,22 @@ export default {
     return {
 
     }
-  }
+  },
+
+  mounted() {
+
+    // Falls beim Öffnen der Website auf EGAL WELCHER Seite (AUSSER LOGIN!!) kein Cookie ist -> auf Login leiten.
+    if(this.$route.path != "/login"){
+      if(!this.$cookies.isKey("user")){
+        this.$router.push('/login')
+      }
+    }
+
+
+
+
+  },
+
 };
 </script>
 
