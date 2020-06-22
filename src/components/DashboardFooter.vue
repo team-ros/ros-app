@@ -1,9 +1,10 @@
 <template>
     <div class="pa-2" style="background: #0044b2; height: 60px; width: 100%; position: fixed; bottom: 0">
-        <v-row style="color: white; text-align: center;">
-            <v-col class="col-4"><p>Test</p></v-col>
-            <v-col class="col-4"><p>Test</p></v-col>
+        <v-row style="color: #eeeeee; text-align: center;">
             <v-col class="col-4"><i @click="logout" class="fas fa-sign-out-alt fa-lg"></i></v-col>
+            <v-col class="col-4"><i @click="logout" class="fas fa-plus fa-lg"></i></v-col>
+            <v-col class="col-4"><i @click="$router.push('/account')" class="fas fa-user fa-lg"></i></v-col>
+
 
         </v-row>
     </div>
@@ -32,7 +33,6 @@
                     self.$cookies.remove("user");
                     self.$router.push('/login')
                 })
-
 
             }
         }

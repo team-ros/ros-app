@@ -1,11 +1,6 @@
 <template>
   <div>
     <DashboardHeader></DashboardHeader>
-
-    <p style="margin-top: 50px;">
-      {{this.$cookies.get("user")}}
-    </p>
-
     <DashboardFooter></DashboardFooter>
     </div>
 </template>

@@ -32,7 +32,9 @@
 export default {
   name: "PasswordRecovery",
   data() {
-    return {};
+    return {
+      email: ""
+    };
   }
 };
 </script>

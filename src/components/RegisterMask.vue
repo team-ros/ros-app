@@ -73,7 +73,8 @@
             >
               Schon registriert?
             </span>
-            <router-link style="font-size: 12px;" to="/login">
+            <router-link style="font-size: 12px;
+" to="/login">
               Login
             </router-link>
           </div>

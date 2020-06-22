@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="pa-5" style="background: #0044b2; height: 60px; width: 100%;">
-            <span style="color: white; font-size: 18px" class="mx-2"> ROS </span>
-            <span @click="dialog=true" style="color: white; font-size: 18px; float: right " class="mx-2"> <i
+            <span style="color: #eeeeee; font-size: 20px" class="mx-2"> ROS </span>
+            <span @click="dialog=true" style="color: #eeeeee; font-size: 18px; float: right " class="mx-2"> <i
                     class="fas fa-bars"></i> </span>
         </div>
 
@@ -56,7 +56,7 @@
         margin: 50px !important;
         border-radius: 0px !important;
         box-shadow: none !important;
-        color: white !important;
+        color: #eeeeee !important;
 
 
 
@@ -69,7 +69,7 @@
 
     a, h2 {
         text-decoration: none;
-        color: white !important;
+        color: #eeeeee !important;
     }
 
 

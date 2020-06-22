@@ -4,6 +4,8 @@ import Login from '../views/Login'
 import Dashboard from "../views/Dashboard";
 import Register from "../views/Register";
 import PasswordRecovery from "../views/PasswordRecovery";
+import Account from "../views/Account";
+import Impressum from "../components/Impressum";
 
 Vue.use(VueRouter)
 
@@ -27,6 +29,16 @@ Vue.use(VueRouter)
       path: '/PasswordRecovery',
       name: 'PasswordRecovery',
       component: PasswordRecovery
+    },
+    {
+      path: '/Account',
+      name: 'Account',
+      component: Account
+    },
+    {
+      path: '/Impressum',
+      name: 'Impressum',
+      component: Impressum
     }
   ]
 
