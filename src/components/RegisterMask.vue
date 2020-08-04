@@ -8,13 +8,13 @@
     <v-row>
       <v-col class="col-12 mt-6">
         <h1 class="mb-8">Registrieren</h1>
-        <p class="mb-1" style="margin-top: -35px">
-          Hier können Sie sich Registrieren
-        </p>
-        <v-card flat class="pa-4">
+        <p class="mb-1" style="margin-top: -28px; font-size: 14px">
+          Hier können Sie sich registrieren, wenn
+          Sie noch keinen Account haben.</p>
+        <v-card flat class="pa-4" >
           <v-text-field
             color="#0044b2"
-            class=" mt-12 mb-44"
+            class=" mt-13 mb-44"
             label="Vorname"
             type="vorname"
             v-model="vorname"
@@ -66,18 +66,6 @@
             >Registrieren
           </v-btn>
 
-          <div class="mt-4">
-            <span
-              class="mr-2"
-              style="font-size: 12px;float: left; margin-top: 4px"
-            >
-              Schon registriert?
-            </span>
-            <router-link style="font-size: 12px;
-" to="/login">
-              Login
-            </router-link>
-          </div>
         </v-card>
       </v-col>
     </v-row>
@@ -130,13 +118,8 @@ export default {
   border-radius: 0px !important;
 }
 
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color: black !important;
-}
+  .v-label, .v-input {
+    font-size: 14px!important; 
+  }
+
 </style>

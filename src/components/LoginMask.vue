@@ -33,17 +33,7 @@
                         </p>
                     </router-link>
 
-                    <div style="margin-top: 150px"></div>
-
-                    <v-btn
-                            class="my-2"
-                            @click="loginWithGoogle"
-                            block
-                            color="grey"
-                            depressed
-                            style="color: #eeeeee"
-                    >Login with Google
-                    </v-btn>
+                    <div style="margin-top: 50px"></div>
 
                     <v-btn
                             @click="login"
@@ -54,17 +44,35 @@
                     >Login
                     </v-btn>
 
-                    <div class="mt-4">
+                    <v-btn
+                            class="my-4"
+                            @click="loginWithGoogle"
+                            block
+                            color="grey"
+                            depressed
+                            style="color: #eeeeee"
+                    >Login with Google
+                    </v-btn>
+
+                <div style="text-align: center">
+                    <div class="mt-8">
             <span
                     class="mr-2"
-                    style="font-size: 12px;float: left; margin-top: 4px;"
+                    style="font-size: 12px; text-align: center; margin-top: 4px"
             >
-              Noch keinen Account?
+              Keinen Account?
             </span>
                         <router-link style="font-size: 12px;" to="/register">
                             <span>Registrieren</span>
                         </router-link>
                     </div>
+
+                    <div class="mt-3">
+                        <router-link style="font-size: 12px;" to="/impressum">
+                            <span> Impressum </span>
+                        </router-link>
+                    </div>
+                </div>
                 </v-card>
             </v-col>
         </v-row>

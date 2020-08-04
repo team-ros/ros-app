@@ -41,4 +41,8 @@ export default {
   a{
   color: #0044b2;
   }
+  h1 {
+    font-size: 20px !important;
+  }
+
 </style>
