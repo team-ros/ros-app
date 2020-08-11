@@ -39,6 +39,7 @@ h1, h2, h3, h4 {
 
 a {
   color: #0044b2;
+  text-decoration: none;
 }
 
 h1 {

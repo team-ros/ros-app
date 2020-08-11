@@ -15,17 +15,17 @@
           <v-text-field
                   color="#0044b2"
                   readonly
-                  value=""
+                  v-model="user.vorname"
           ></v-text-field>
           <v-text-field
                   color="#0044b2"
                   readonly
-                  value=""
+                  v-model="user.nachname"
           ></v-text-field>
           <v-text-field
                   color="#0044b2"
                   readonly
-                  value=""
+                  v-model="user.email"
           ></v-text-field>
           <h1 style="font-size: large; margin-top: 30px;" class="mb-7">Passwort zurücksetzen?</h1>
           <v-text-field
@@ -48,10 +48,19 @@ export default {
   name: "PasswordRecovery",
   data() {
     return {
-      email: ""
+      user: {}
     };
+  },
+
+  mounted() {
+    this.user = this.$cookies.get("user")
   }
+
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+
+
+</style>

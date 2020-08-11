@@ -5,10 +5,9 @@ import router from './router'
 import '@mdi/font/css/materialdesignicons.css'
 import Vuecookies from 'vue-cookies'
 import firebase from "firebase";
+import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
 
-import LongPress from 'vue-directive-long-press'
-
-Vue.directive('long-press', LongPress)
+Vue.use(vueFilterPrettyBytes)
 
 const firebaseConfig = {
   apiKey: "AIzaSyBTEaBrtxi329vwEvYUlAl4pKEk9XJ9PjY",

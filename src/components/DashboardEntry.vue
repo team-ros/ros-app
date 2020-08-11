@@ -1,8 +1,12 @@
 <template>
   <div class="pa-3">
-    <div class="mr-6" style="float: left" v-html="icon">
+    <div style="width: 40px; float: left; margin-left: 5px" v-html="icon">
     </div>
-    <span style=" display:block; margin-top: 2px!important;">{{ filename }} </span>
+    <span style=" margin-top: 2px!important;float: left; font-size: 14px">{{ filename }}.{{ filetype }} </span>
+    <span style=" margin-top: 2px!important; margin-left: 20px; float: right; font-size: 14px">{{
+       filesize | prettyBytes
+      }} </span>
+    <div style="clear: both"></div>
   </div>
 </template>
 
@@ -14,27 +18,51 @@ export default {
 
   data() {
     return {
-      icon: "<i class=\"far fa-file fa-lg\"></i>"
+      icon: ""
     }
   },
 
   props: {
     filetype: String,
+    filesize: String,
     filename: {type: String, default: "NaN"}
   },
 
   mounted() {
 
     if (this.filetype == "pdf") {
-      this.icon = "<i class=\"far fa-file-pdf fa-lg\"></i>"
-    } else if (this.filetype == "docx") {
-      this.icon = "<i class=\"far fa-file-word fa-lg\"></i>"
+      this.icon = "<i class=\"far blueAccent fa-file-pdf fa-lg\"></i>"
+    } else if (this.filetype == "doc" || this.filetype == "docx" || this.filetype == "dot" || this.filetype == "dotx" || this.filetype == "docm" || this.filetype == "dotm" || this.filetype == "odt") {
+      this.icon = "<i class=\"far blueAccent fa-file-word fa-lg\"></i>"
+    } else if (this.filetype == "xlsx" || this.filetype == "xlsm" || this.filetype == "xlsb" || this.filetype == "xlam" || this.filetype == "xltx" || this.filetype == "xlk" || this.filetype == "xll" || this.filetype == "xls") {
+      this.icon = "<i class=\"far blueAccent fa-file-excel fa-lg\"></i>"
+    } else if (this.filetype == "txt" || this.filetype == "rtf") {
+      this.icon = "<i class=\"far blueAccent fa-file-alt fa-lg\"></i>"
+    } else if (this.filetype == "jpg" || this.filetype == "jpeg" || this.filetype == "gif") {
+      this.icon = "<i class=\"far blueAccent fa-image fa-lg\"></i>"
+    } else if (this.filetype == "ppt" || this.filetype == "pptx") {
+      this.icon = "<i class=\"far blueAccent fa-file-powerpoint fa-lg\"></i>"
+    } else if (this.filetype == "zip" || this.filetype == "rar") {
+      this.icon = "<i class=\"far blueAccent fa-file-archive fa-lg\"></i>"
+    } else if (this.filetype == "htm" || this.filetype == "html" || this.filetype == "mht" || this.filetype == "mhtml") {
+      this.icon = "<i class=\"far blueAccent fa-file-code fa-lg\"></i>"
+    } else if (this.filetype == "wav" || this.filetype == "mp3") {
+      this.icon = "<i class=\"far blueAccent fa-file-audio fa-lg\"></i>"
+    } else if (this.filetype == "mpg" || this.filetype == "mpeg" || this.filetype == "avi" || this.filetype == "wmv" || this.filetype == "mov" || this.filetype == "ram") {
+      this.icon = "<i class=\"far blueAccent fa-file-video fa-lg\"></i>"
+    } else if (this.filetype == "csv") {
+      this.icon = "<i class=\"fas blueAccent fa-file-csv fa-lg\"></i>"
+    } else {
+      this.icon = "<i class=\"far blueAccent fa-file fa-lg\"></i>"
     }
-
-
   }
-
 };
 </script>
 
-<style scoped></style>
+<style>
+
+.blueAccent {
+  color: #0044b2;
+}
+
+</style>

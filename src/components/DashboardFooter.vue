@@ -29,6 +29,7 @@ export default {
         //Falls beim LogOut kein Fehler ist:
         // Lösche Cookie und leite auf Login weiter
         self.$cookies.remove("user");
+        self.$cookies.remove("token");
         self.$router.push('/login')
       })
 

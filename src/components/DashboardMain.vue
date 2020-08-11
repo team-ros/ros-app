@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <v-container style="position: fixed; top:50px; background: #eeeeee">
+      <v-container style="position: fixed; top:70px;">
         <v-row no-gutters>
-          <v-col class="mt-4 col-10">
+          <v-col class="col-10">
             <v-text-field
-                style="border-top-right-radius: 0px; border-bottom-right-radius: 0px"
+                style="border-top-right-radius: 0px; border-bottom-right-radius: 0px; font-size: 14px"
                 dense
                 hide-details
                 placeholder="Durchsuchen"
@@ -13,33 +13,37 @@
                 color="#0044b2"
                 append-icon="mdi-magnify"
                 v-model="search"
+
             ></v-text-field>
           </v-col>
-          <v-col class="mt-4 mb-4 col-2">
 
-            <v-btn @click="openFilterOptions()" block style="border-top-left-radius: 0px; border-bottom-left-radius: 0px; border-left: none"
+          <v-col class="mb-4 col-2">
+
+            <v-btn @click="filterDialog = true" block
+                   style="border-top-left-radius: 0px; border-bottom-left-radius: 0px; border-left: none"
                    height="40px" color="rgb(118, 118, 118)" outlined><i
-                style="color: #0044b2;float: right; font-size: 17px"
+                style="color: #0044b2;font-size: 17px"
                 class="fas fa-filter"></i></v-btn>
 
           </v-col>
         </v-row>
       </v-container>
+
       <v-container class="pa-0">
         <v-row no-gutters>
           <v-col class="col-12 mt-6">
 
             <table width="100%">
               <tr v-for="file in filteredList" :key="file">
-                <td>
-                  <DashboardEntry v-long-press="300"
-                                  @long-press-start="openOptions(file.id)" :filetype="file.filetype"
-                                  :filename="file.name"></DashboardEntry>
+                <td @click="openOptions(file)">
+                  <DashboardEntry
+                      :filetype="file.filetype"
+                      :filename="file.name"
+                      :filesize="file.size"></DashboardEntry>
+
                 </td>
               </tr>
             </table>
-
-
           </v-col>
         </v-row>
       </v-container>
@@ -47,36 +51,28 @@
 
     <v-dialog v-model="fileDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card class="pa-8">
-        <h3 class="mb-4">Optionen</h3>
+        <h3 class="mb-4">OPTIONEN</h3>
 
-        <v-btn color="#0044b2" block class="my-4" outlined depressed>Umbenennen</v-btn>
+        <v-btn color="#0044b2" block class="my-4" outlined depressed>Herunterladen</v-btn>
         <v-btn color="#0044b2" block class="my-4" outlined depressed>Löschen</v-btn>
-
-
-
-
+        <v-btn color="#0044b2" block class="my-4" outlined depressed>Verschieben</v-btn>
+        <v-btn color="#0044b2" block class="my-4" outlined depressed>Umbenennen</v-btn>
 
       </v-card>
     </v-dialog>
 
 
-
-
-
-    <v-dialog v-model="filterDialog" fullscreen class="fileoption"  transition="dialog-bottom-transition">
+    <v-dialog v-model="filterDialog" fullscreen class="fileoption" transition="dialog-bottom-transition">
 
       <v-card class="pa-8">
-        <h3 class="mb-4">Filtern nach</h3>
-        <v-btn color="#0044b2" @click="FilterName" block class="my-4" outlined depressed>Name</v-btn>
-        <v-btn color="#0044b2" @click="FilterDate" block class="my-4" outlined depressed>Datum</v-btn>
-        <v-btn color="#0044b2" @click="FilterType" block class="my-4" outlined depressed>Dateityp</v-btn>
-        <v-btn color="#0044b2" @click="FilterSize" block class="my-4" outlined depressed>Dateigröße</v-btn>
+        <h3 class="mb-4">SORTIERE NACH</h3>
+        <v-btn color="#0044b2" @click="filterName" block class="my-4" outlined depressed>Name</v-btn>
+        <v-btn color="#0044b2" @click="filterDate" block class="my-4" outlined depressed>Datum</v-btn>
+        <v-btn color="#0044b2" @click="filterType" block class="my-4" outlined depressed>Dateityp</v-btn>
+        <v-btn color="#0044b2" @click="filterSize" block class="my-4" outlined depressed>Dateigröße</v-btn>
       </v-card>
 
     </v-dialog>
-
-
-
 
 
   </div>
@@ -99,13 +95,14 @@ export default {
       ApiResponse: {
 
         files: [
-          {id: 1, name: "Test", filetype: "pdf", size: "5mb"},
-          {id: 2, name: "Test2", filetype: "pdf", size: "3mb"},
-          {id: 3, name: "Hallo", filetype: "jpg", size: "1mb"},
-          {id: 4, name: "Ich bin eine Textdatei_V2", filetype: "txt", size: "12kb"},
-          {id: 5, name: "WORdDdd", filetype: "docx", size: "21mb"},
-          {id: 6, name: "WORdDdd", filetype: "docx", size: "21mb"},
-          {id: 7, name: "WORdDdd", filetype: "jpg", size: "21mb"},
+          {id: 1, name: "Test1", filetype: "pdf", size: 8898171},
+          {id: 2, name: "Test2", filetype: "pdf", size: 12331},
+          {id: 3, name: "Testbild", filetype: "jpg", size: 23112231},
+          {id: 4, name: "Test3", filetype: "txt", size: 3221},
+          {id: 5, name: "Worddatei1", filetype: "docx", size: 1233},
+          {id: 6, name: "Worddatei2", filetype: "csv", size: 5123312},
+          {id: 7, name: "Powerpoint", filetype: "avasdasdi", size: 12333112312},
+          {id: 7, name: "AAAAA", filetype: "avasdasdi", size: 122},
         ]
 
       }
@@ -128,18 +125,48 @@ export default {
 
     },
 
-    openOptions: function (id) {
+    openOptions: function (file) {
+
+      if (this.filterDialog == true) {
+        this.filterDialog = false
+        return
+      }
       this.fileDialog = true;
-      this.selectedFile = this.ApiResponse.files.find(x => x.id === id)
+      this.selectedFile = file
 
     },
 
-    openFilterOptions: function (){
-      this.filterDialog = true;
+    filterName: function () {
 
+      this.filteredList.sort(function (a, b) {
+        let fileA = a.name.toLowerCase();
+        let fileB = b.name.toLowerCase();
+        return (fileA < fileB) ? -1 : (fileA > fileB) ? 1 : 0;
+      });
+
+      this.filterDialog = false;
+    },
+
+    filterType: function () {
+
+      this.filteredList.sort(function (a, b) {
+        let fileA = a.filetype.toLowerCase();
+        let fileB = b.filetype.toLowerCase();
+        return (fileA < fileB) ? -1 : (fileA > fileB) ? 1 : 0;
+      });
+
+      this.filterDialog = false;
+    },
+
+    filterSize: function () {
+      this.filteredList.sort(function (a, b) {
+        let fileA = a.size;
+        let fileB = b.size;
+        return (fileA > fileB) ? -1 : (fileA < fileB) ? 1 : 0;
+      });
+
+      this.filterDialog = false;
     }
-
-
   },
 
   computed: {

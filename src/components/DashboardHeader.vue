@@ -1,12 +1,14 @@
 <template>
-  <v-container style="background: #eeeeee">
-    <v-col class="col-12">
-      <div style="height: 60px; width: 100%; color: #0044b2;">
-        <span style="font-weight: 700; font-size: 18px">ROS </span>
-        <span @click="dialog=true" style="float: right "> <i
-            class="fas fa-bars fa-lg"></i> </span>
-      </div>
-    </v-col>
+  <v-container>
+    <v-row>
+      <v-col class="col-12 px-6">
+        <div style="height: 60px; width: 100%; color: #0044b2;">
+          <span style="font-weight: 700; font-size: 18px">ROS</span>
+          <span @click="dialog=true" style="float: right "> <i
+              class="fas fa-bars fa-lg"></i> </span>
+        </div>
+      </v-col>
+    </v-row>
 
 
     <v-dialog

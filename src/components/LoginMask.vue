@@ -131,24 +131,28 @@ export default {
           }).then(function () {
 
         //Wenn kein Fehler auftritt gehts hier weiter
-        let user = firebase.auth().currentUser;
 
-        console.log(user)
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            let tempUser = {
+              id: user.uid,
+              vorname: user.displayName.split(' ')[0],
+              nachname: user.displayName.split(' ')[1],
+              email: user.email
+            };
+            self.$cookies.set("user", tempUser);
+
+            user.getIdToken().then(token => {
+              self.$cookies.set("token", token);
+            })
+
+          }
+        });
 
 
-        if (user) {
-          // If user = wenn wir einen User zurückbekommen
-          let tempUser = {
-            id: user.uid,
-            vorname: user.displayName.split(' ')[0],
-            nachname: user.displayName.split(' ')[1],
-            email: user.email,
+        self.$router.push("/");
 
-          };
-          //Wir setzen diesen User als Cookie und gehen aufs Dashboard
-          self.$cookies.set("user", tempUser);
-          self.$router.push("/");
-        }
+
       });
 
 
