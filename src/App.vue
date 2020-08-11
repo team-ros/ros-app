@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <router-view> </router-view>
+    <router-view></router-view>
   </v-app>
 </template>
 
@@ -8,21 +8,17 @@
 
 export default {
   data() {
-    return {
-
-    }
+    return {}
   },
 
-  mounted() {
+  created() {
 
     // Falls beim Öffnen der Website auf EGAL WELCHER Seite (AUSSER LOGIN!!) kein Cookie ist -> auf Login leiten.
-    if(this.$route.path != "/login"){
-      if(!this.$cookies.isKey("user")){
+    if (this.$route.path != "/login") {
+      if (!this.$cookies.isKey("user")) {
         this.$router.push('/login')
       }
     }
-
-
 
 
   },
@@ -32,17 +28,21 @@ export default {
 
 <style>
 
-  #app {
-      font-family: 'Montserrat', sans-serif;
-  }
-  h1,h2,h3,h4{
+#app {
+  font-family: 'Montserrat', sans-serif;
+  background: #eee;
+}
+
+h1, h2, h3, h4 {
   color: black;
-  }
-  a{
+}
+
+a {
   color: #0044b2;
-  }
-  h1 {
-    font-size: 20px !important;
-  }
+}
+
+h1 {
+  font-size: 20px !important;
+}
 
 </style>

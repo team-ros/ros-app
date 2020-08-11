@@ -33,6 +33,7 @@
     "node": "^14.7.0",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.0",
+    "vue-directive-long-press": "^1.1.0",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11"
   },

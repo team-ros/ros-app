@@ -6,6 +6,10 @@ import '@mdi/font/css/materialdesignicons.css'
 import Vuecookies from 'vue-cookies'
 import firebase from "firebase";
 
+import LongPress from 'vue-directive-long-press'
+
+Vue.directive('long-press', LongPress)
+
 const firebaseConfig = {
   apiKey: "AIzaSyBTEaBrtxi329vwEvYUlAl4pKEk9XJ9PjY",
   authDomain: "ros-cloud-cc711.firebaseapp.com",

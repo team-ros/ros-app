@@ -11,7 +11,7 @@
         <p class="mb-1" style="margin-top: -28px; font-size: 14px">
           Hier können Sie sich registrieren, wenn
           Sie noch keinen Account haben.</p>
-        <v-card flat class="pa-4" >
+        <v-card flat class="pa-4" color="#eee" >
           <v-text-field
             color="#0044b2"
             class=" mt-13 mb-44"
