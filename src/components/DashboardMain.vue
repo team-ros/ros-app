@@ -1,5 +1,17 @@
 <template>
   <div>
+  <v-container style="position: fixed; top:0px">
+    <v-row>
+      <v-col class="col-12 px-6">
+        <div style="height: 60px; width: 100%; color: #0044b2;">
+          <span style="font-weight: 700; font-size: 18px">ROS</span>
+          <span @click="menuDialog=true" style="float: right "> <i
+              class="fas fa-bars fa-lg"></i> </span>
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
+
     <div>
       <v-container style="position: fixed; top:70px;">
         <v-row no-gutters>
@@ -19,7 +31,7 @@
 
           <v-col class="mb-4 col-2">
 
-            <v-btn @click="filterDialog = true" block
+            <v-btn @click="openFilter()" block
                    style="border-top-left-radius: 0px; border-bottom-left-radius: 0px; border-left: none"
                    height="40px" color="rgb(118, 118, 118)" outlined><i
                 style="color: #0044b2;font-size: 17px"
@@ -50,7 +62,7 @@
     </div>
 
     <v-dialog v-model="fileDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-      <v-card class="pa-8">
+      <v-card color="#eee" class="pa-8">
         <h3 class="mb-4">OPTIONEN</h3>
 
         <v-btn color="#0044b2" block class="my-4" outlined depressed>Herunterladen</v-btn>
@@ -64,7 +76,7 @@
 
     <v-dialog v-model="filterDialog" fullscreen class="fileoption" transition="dialog-bottom-transition">
 
-      <v-card class="pa-8">
+      <v-card color="#eee" class="pa-8">
         <h3 class="mb-4">SORTIERE NACH</h3>
         <v-btn color="#0044b2" @click="filterName" block class="my-4" outlined depressed>Name</v-btn>
         <v-btn color="#0044b2" @click="filterDate" block class="my-4" outlined depressed>Datum</v-btn>
@@ -73,6 +85,38 @@
       </v-card>
 
     </v-dialog>
+
+    <v-overlay z-index="300" color="#eee" style="color:#000;" opacity="1" :value="menuDialog">
+
+      <v-card flat color="#eee" class="pa-12" light width="100vw" height="100vh" >
+
+
+        <i @click="menuDialog = false" class="fas fa-arrow-left fa-lg mt-6"></i>
+
+        <h2 class="mb-4 mt-6">Projektwebsite</h2>
+
+
+
+
+        <a href=""><p>ROS Cloud</p></a>
+        <h2 class="mt-12 mb-4">Social Media</h2>
+        <a href="https://www.instagram.com/ros_cloud/"><i style="float: left; margin-right: 5px; margin-top: 3px"
+                                                          class="fab fa-instagram"></i>
+          <p>Instagram</p></a>
+        <a href="https://twitter.com/cloud_ros/"><i style="float: left; margin-right: 5px; margin-top: 3px"
+                                                    class="fab fa-twitter"></i>
+          <p>Twitter</p></a>
+        <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/"
+        ><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-linkedin-in"></i>
+          <p>LinkedIn</p></a
+        >
+        <h2 class="mt-12 mb-4"> Hilfe </h2>
+        <router-link to="/impressum"><p>Impressum</p></router-link>
+        <router-link to="/support"><p>Support</p></router-link>
+
+      </v-card>
+
+    </v-overlay>
 
 
   </div>
@@ -92,6 +136,7 @@ export default {
       filterDialog: false,
       selectedFile: {},
       search: '',
+      menuDialog: false,
       ApiResponse: {
 
         files: [
@@ -134,6 +179,15 @@ export default {
       this.fileDialog = true;
       this.selectedFile = file
 
+    },
+
+    openFilter: function () {
+
+      if (this.fileDialog == true) {
+        this.fileDialog = false
+        return
+      }
+      this.filterDialog = true;
     },
 
     filterName: function () {
@@ -192,7 +246,14 @@ export default {
   top: auto;
   bottom: 0px !important;
 
+
 }
+
+a{
+  text-decoration: none;
+  color: black!important;
+}
+
 
 table {
   border-collapse: collapse;
