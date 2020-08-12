@@ -14,8 +14,7 @@
 
 
 export default {
-
-
+  name: "DashboardEntry",
   data() {
     return {
       icon: ""

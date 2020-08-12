@@ -13,7 +13,6 @@
 import firebase from "firebase";
 
 export default {
-
   name: "DashboardFooter",
   data() {
     return {}

@@ -33,6 +33,7 @@ export default {
   background: #eee;
 }
 
+
 h1, h2, h3, h4 {
   color: black;
 }
@@ -42,8 +43,6 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  font-size: 20px !important;
-}
+
 
 </style>

@@ -128,8 +128,7 @@ import firebase from "firebase";
 import DashboardEntry from "@/components/DashboardEntry";
 
 export default {
-
-  name: "DashboardFooter",
+  name: "DashboardMain",
   data() {
     return {
       fileDialog: false,

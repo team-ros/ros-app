@@ -1,43 +1,35 @@
 <template>
   <v-container class="pa-10">
-    <router-link to="/">
+    <router-link to="/Login">
       <v-btn icon>
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
     </router-link>
     <div>
       <v-col class="col-12 mt-6">
-        <h1 class="mb-10">Account</h1>
+        <h1 class="mb-10">Impressum</h1>
         <p class="mb-1" style="margin-top: -35px">
-          Hier sind Ihre Accountinformationen zu sehen.
         </p>
-        <div class="mt-12">
-          <v-text-field
-                  color="#0044b2"
-                  readonly
-                  value=""
-          ></v-text-field>
-          <v-text-field
-                  color="#0044b2"
-                  readonly
-                  value=""
-          ></v-text-field>
-          <v-text-field
-                  color="#0044b2"
-                  readonly
-                  value=""
-          ></v-text-field>
-          <h1 style="font-size: large; margin-top: 30px;" class="mb-7">Passwort zurücksetzen?</h1>
-          <v-text-field
-                  color="#0044b2"
-                  type="email"
-                  label="E-Mail"
-                  v-model="email"
-          ></v-text-field>
-          <v-btn block color="#0044b2" depressed style="color: #eeeeee"
-          >Zurücksetzen
-          </v-btn>
-          </div>
+        <div class="mt-12" style="font-size: 13px">
+          <p > Für diese App verantwortlicher Herausgeber:</p>
+          <p> Sharon Chaveiro </p>
+          <p> Rennweg 89B</p>
+          <p> 1030 Wien</p>
+          <p> Österreich</p>
+          <br>
+          <p> Telefon: +43 660 9 26 35 81</p>
+          <p> E-Mail: chaveiro@ros-cloud.at
+          </p>
+          <p> Internet: www.ros-cloud.at</p>
+        </div>
+        <div class="mt-12" style="font-size: 13px">
+          <p> Für etwaige Fragen wenden Sie sich an den Support unter der E-Mail-Adresse:
+            info@ros-cloud.at. </p>
+        </div>
+
+
+
+
       </v-col>
     </div>
   </v-container>
@@ -45,13 +37,13 @@
 
 <script>
 export default {
-  name: "PasswordRecovery",
+  name: "Impressum",
   data() {
     return {
-      email: ""
     };
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
