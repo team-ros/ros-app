@@ -1,16 +1,16 @@
 <template>
   <div>
-  <v-container style="position: fixed; top:0px">
-    <v-row>
-      <v-col class="col-12 px-6">
-        <div style="height: 60px; width: 100%; color: #0044b2;">
-          <span style="font-weight: 700; font-size: 18px">ROS</span>
-          <span @click="menuDialog=true" style="float: right "> <i
-              class="fas fa-bars fa-lg"></i> </span>
-        </div>
-      </v-col>
-    </v-row>
-  </v-container>
+    <v-container style="position: fixed; top:0px">
+      <v-row>
+        <v-col class="col-12 px-6">
+          <div style="height: 60px; width: 100%; color: #0044b2;">
+            <span style="font-weight: 700; font-size: 18px">ROS</span>
+            <span @click="menuDialog=true" style="float: right "> <i
+                class="fas fa-bars fa-lg"></i> </span>
+          </div>
+        </v-col>
+      </v-row>
+    </v-container>
 
     <div>
       <v-container style="position: fixed; top:70px;">
@@ -45,13 +45,22 @@
         <v-row no-gutters>
           <v-col class="col-12 mt-6">
 
+            <v-btn v-if="depth > 0" @click="backFolder" icon>
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+
             <table width="100%">
-              <tr v-for="file in filteredList" :key="file">
-                <td @click="openOptions(file)">
+              <tr v-for="entry in filteredList" :key="entry">
+                <td v-if="entry.filetype !== 'folder'" @click="openOptions(entry)">
                   <DashboardEntry
-                      :filetype="file.filetype"
-                      :filename="file.name"
-                      :filesize="file.size"></DashboardEntry>
+                      :filetype="entry.filetype"
+                      :filename="entry.name"
+                      :filesize="entry.size"></DashboardEntry>
+
+                </td>
+                <td v-else @click="openFolder(entry)">
+                  <DashboardEntry
+                      :filename="entry.name"></DashboardEntry>
 
                 </td>
               </tr>
@@ -88,14 +97,12 @@
 
     <v-overlay z-index="300" color="#eee" style="color:#000;" opacity="1" :value="menuDialog">
 
-      <v-card flat color="#eee" class="pa-12" light width="100vw" height="100vh" >
+      <v-card flat color="#eee" class="pa-12" light width="100vw" height="100vh">
 
 
         <i @click="menuDialog = false" class="fas fa-arrow-left fa-lg mt-6"></i>
 
         <h2 class="mb-4 mt-6">Projektwebsite</h2>
-
-
 
 
         <a href=""><p>ROS Cloud</p></a>
@@ -136,6 +143,8 @@ export default {
       selectedFile: {},
       search: '',
       menuDialog: false,
+      depth: 0,
+      lastLocation: [],
       ApiResponse: {
 
         files: [
@@ -147,6 +156,20 @@ export default {
           {id: 6, name: "Worddatei2", filetype: "csv", size: 5123312},
           {id: 7, name: "Powerpoint", filetype: "avasdasdi", size: 12333112312},
           {id: 7, name: "AAAAA", filetype: "avasdasdi", size: 122},
+          {
+            id: 8, name: "IchBinEinOrdner", filetype: "folder", files: [
+              {id: 9, name: "Test1", filetype: "pdf", size: 8898171},
+              {
+                id: 8, name: "IchBinEinOrdner", filetype: "folder", files: [
+                  {id: 13, name: "Test3", filetype: "txt", size: 3221},
+                  {id: 14, name: "Worddatei1", filetype: "docx", size: 1233},
+                ]
+              },
+              {id: 10, name: "Test2", filetype: "pdf", size: 12331},
+              {id: 11, name: "Testbild", filetype: "jpg", size: 23112231},
+              {id: 12, name: "Test3", filetype: "txt", size: 3221},
+            ]
+          },
         ]
 
       }
@@ -219,7 +242,36 @@ export default {
       });
 
       this.filterDialog = false;
+    },
+
+    openFolder: function (folder) {
+
+      // let tmpFolder = folder.id
+
+      if(this.depth == 0){
+        this.lastLocation[this.lastLocation.length] = this.ApiResponse.files;
+      }else{
+        console.log(this.lastLocation)
+        console.log( this.lastLocation[this.lastLocation.length])
+        //  this.lastLocation[this.lastLocation.length] = this.ApiResponse.files.find(x => x.id === folder.id)
+      }
+
+      this.ApiResponse.files = folder.files
+      this.depth++;
+      console.log("OPEND FOLDER")
+      console.log(this.depth)
+
+    },
+
+    backFolder: function () {
+      this.ApiResponse.files = this.lastLocation[this.depth]
+      this.depth--;
+      console.log("BACK")
+      console.log(this.depth)
+      console.log(this.lastLocation)
+
     }
+
   },
 
   computed: {
@@ -248,9 +300,9 @@ export default {
 
 }
 
-a{
+a {
   text-decoration: none;
-  color: black!important;
+  color: black !important;
 }
 
 
