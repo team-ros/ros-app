@@ -6,6 +6,7 @@ import Register from "../views/Register";
 import PasswordRecovery from "../views/PasswordRecovery";
 import Account from "../views/Account";
 import Impressum from "../components/Impressum";
+import Support from "../components/Support";
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ Vue.use(VueRouter)
       path: '/Impressum',
       name: 'Impressum',
       component: Impressum
+    },
+    {
+      path: '/Support',
+      name: 'Support',
+      component: Support
     }
   ]
 

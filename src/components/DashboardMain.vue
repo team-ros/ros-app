@@ -258,7 +258,7 @@ export default {
 
       this.ApiResponse.files = folder.files
       this.depth++;
-      console.log("OPEND FOLDER")
+      console.log("OPENED FOLDER")
       console.log(this.depth)
 
     },

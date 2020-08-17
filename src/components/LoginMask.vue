@@ -62,12 +62,12 @@
             >
               Keinen Account?
             </span>
-              <router-link style="font-size: 12px;" to="/register">
+              <router-link style="font-size: 12px; text-decoration: underline" to="/register">
                 <span>Registrieren</span>
               </router-link>
             </div>
 
-            <div class="mt-3">
+            <div class="mt-6">
               <router-link style="font-size: 12px;" to="/impressum">
                 <span> Impressum </span>
               </router-link>
