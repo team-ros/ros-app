@@ -6,7 +6,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import Vuecookies from 'vue-cookies'
 import firebase from "firebase";
 import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
+import VueSession from 'vue-session'
 
+Vue.use(VueSession)
 Vue.use(vueFilterPrettyBytes)
 
 const firebaseConfig = {

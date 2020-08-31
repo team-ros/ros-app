@@ -84,7 +84,9 @@
 
 <script>
 
+
 import firebase from "firebase";
+import {API} from "ros-sdk-js";
 
 export default {
   name: "Login",
@@ -107,7 +109,12 @@ export default {
           nachname: "Chaveiro",
         };
 
-        this.$cookies.set("user", tempUser);
+        if(this.$cookies.isKey('cookiesAllowed')){
+          this.$cookies.set("user", tempUser);
+        }else {
+          this.$session.set("user", tempUser);
+        }
+
         this.$router.push("/");
       } else {
         this.loginError = true;
@@ -139,14 +146,42 @@ export default {
               nachname: user.displayName.split(' ')[1],
               email: user.email
             };
-            self.$cookies.set("user", tempUser);
 
+            if(self.$cookies.isKey('cookiesAllowed')) {
+              self.$cookies.set("user", tempUser);
+            }else {
+              self.$session.set("user", tempUser);
+            }
             user.getIdToken().then(token => {
-              self.$cookies.set("token", token);
+
+              if(self.$cookies.isKey('cookiesAllowed')) {
+                self.$cookies.set("token", token);
+              }else {
+                self.$session.set("token", token);
+              }
+
             })
 
           }
         });
+
+
+        const  api = new  API("https://api.dev.ros-cloud.at/")
+        api.storeToken(self.$cookies.get('token'))
+
+
+
+        api.user().authenticate("register")
+            .then( result  => {
+              if( result.status ) {
+                console.log(result)
+              }
+              if( !result.status ) {
+                console.log(result)
+              }
+            })
+            .catch(err => { console.log(err)})
+
 
 
         self.$router.push("/");

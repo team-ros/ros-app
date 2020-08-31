@@ -105,21 +105,21 @@
         <h2 class="mb-4 mt-6">Projektwebsite</h2>
 
 
-        <a href=""><p>ROS Cloud</p></a>
+        <a href=""><p class="blackLink">ROS Cloud</p></a>
         <h2 class="mt-12 mb-4">Social Media</h2>
-        <a href="https://www.instagram.com/ros_cloud/"><i style="float: left; margin-right: 5px; margin-top: 3px"
+        <a href="https://www.instagram.com/ros_cloud/" class="blackLink"><i style="float: left; margin-right: 5px; margin-top: 3px"
                                                           class="fab fa-instagram"></i>
           <p>Instagram</p></a>
-        <a href="https://twitter.com/cloud_ros/"><i style="float: left; margin-right: 5px; margin-top: 3px"
+        <a href="https://twitter.com/cloud_ros/" class="blackLink"><i style="float: left; margin-right: 5px; margin-top: 3px"
                                                     class="fab fa-twitter"></i>
           <p>Twitter</p></a>
-        <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/"
+        <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/" class="blackLink"
         ><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-linkedin-in"></i>
           <p>LinkedIn</p></a
         >
         <h2 class="mt-12 mb-4"> Hilfe </h2>
-        <router-link to="/impressum"><p>Impressum</p></router-link>
-        <router-link to="/support"><p>Support</p></router-link>
+        <router-link class="blackLink" to="/impressum"><p>Impressum</p></router-link>
+        <router-link class="blackLink" to="/support"><p>Support</p></router-link>
 
       </v-card>
 
@@ -133,6 +133,7 @@
 
 import firebase from "firebase";
 import DashboardEntry from "@/components/DashboardEntry";
+
 
 export default {
   name: "DashboardMain",
@@ -284,6 +285,12 @@ export default {
 
   components: {
     DashboardEntry
+  },
+
+  mounted() {
+
+
+
   }
 };
 </script>
@@ -300,11 +307,9 @@ export default {
 
 }
 
-a {
-  text-decoration: none;
-  color: black !important;
+.blackLink{
+  color: black!important;
 }
-
 
 table {
   border-collapse: collapse;
