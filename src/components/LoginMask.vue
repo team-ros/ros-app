@@ -86,7 +86,7 @@
 
 
 import firebase from "firebase";
-import {API} from "ros-sdk-js";
+// import {API} from "ros-sdk-js"
 
 export default {
   name: "Login",
@@ -99,35 +99,17 @@ export default {
     };
   },
   methods: {
-    login: function () {
-      if (this.password != "" || this.email != "") {
 
-
-        let tempUser = {
-          id: 1,
-          vorname: "Sharon",
-          nachname: "Chaveiro",
-        };
-
-        if(this.$cookies.isKey('cookiesAllowed')){
-          this.$cookies.set("user", tempUser);
-        }else {
-          this.$session.set("user", tempUser);
-        }
-
-        this.$router.push("/");
-      } else {
-        this.loginError = true;
-      }
-    },
 
     loginWithGoogle: function () {
 
       let self = this;
+
       const GoogleProvider = new firebase.auth.GoogleAuthProvider()
 
       GoogleProvider.addScope('profile')
       GoogleProvider.addScope('email')
+
       firebase.auth().useDeviceLanguage()
 
       firebase.auth().signInWithPopup(GoogleProvider)
@@ -146,6 +128,7 @@ export default {
               nachname: user.displayName.split(' ')[1],
               email: user.email
             };
+
 
             if(self.$cookies.isKey('cookiesAllowed')) {
               self.$cookies.set("user", tempUser);
@@ -166,23 +149,32 @@ export default {
         });
 
 
-        const  api = new  API("https://api.dev.ros-cloud.at/")
-        api.storeToken(self.$cookies.get('token'))
+        // const  api = new  API("https://api.dev.ros-cloud.at/")
 
+       // let token = null;
 
+       // api.storeToken(token)
 
-        api.user().authenticate("register")
-            .then( result  => {
-              if( result.status ) {
-                console.log(result)
-              }
-              if( !result.status ) {
-                console.log(result)
-              }
-            })
-            .catch(err => { console.log(err)})
+       // if(self.$cookies.isKey('cookiesAllowed')){
+        // this.token = this.$cookies.get('token')
+        // }else{
+        //  this.token = this.$session.get('token')
 
-
+        //
+        //
+        //
+        // api.user().authenticate("register")
+        //     .then( result  => {
+        //       if( result.status ) {
+        //         console.log(result)
+        //       }
+        //       if( !result.status ) {
+        //         console.log(result)
+        //       }
+        //     })
+        //     .catch(err => { console.log(err)})
+        //
+        // console.log("API")
 
         self.$router.push("/");
 

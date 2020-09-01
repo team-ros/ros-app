@@ -50,7 +50,7 @@
             </v-btn>
 
             <table width="100%">
-              <tr v-for="entry in filteredList" :key="entry">
+              <tr v-for="entry in filteredList" :key="entry.id">
                 <td v-if="entry.filetype !== 'folder'" @click="openOptions(entry)">
                   <DashboardEntry
                       :filetype="entry.filetype"
@@ -88,7 +88,7 @@
       <v-card color="#eee" class="pa-8">
         <h3 class="mb-4">SORTIERE NACH</h3>
         <v-btn color="#0044b2" @click="filterName" block class="my-4" outlined depressed>Name</v-btn>
-        <v-btn color="#0044b2" @click="filterDate" block class="my-4" outlined depressed>Datum</v-btn>
+        <v-btn color="#0044b2" block class="my-4" outlined depressed>Datum</v-btn>
         <v-btn color="#0044b2" @click="filterType" block class="my-4" outlined depressed>Dateityp</v-btn>
         <v-btn color="#0044b2" @click="filterSize" block class="my-4" outlined depressed>Dateigröße</v-btn>
       </v-card>
@@ -155,7 +155,6 @@ export default {
           {id: 4, name: "Test3", filetype: "txt", size: 3221},
           {id: 5, name: "Worddatei1", filetype: "docx", size: 1233},
           {id: 6, name: "Worddatei2", filetype: "csv", size: 5123312},
-          {id: 7, name: "Powerpoint", filetype: "avasdasdi", size: 12333112312},
           {id: 7, name: "AAAAA", filetype: "avasdasdi", size: 122},
           {
             id: 8, name: "IchBinEinOrdner", filetype: "folder", files: [

@@ -3,8 +3,6 @@
     <router-view></router-view>
 
     <v-overlay z-index="300" :value="cookieDialog">
-
-
       <v-card style="color:#000!important;" color="#eee" class="pa-8">
         <h3 class="mb-4 text-center">Wir benutzen Cookies.</h3>
         <p style="text-align: justify; font-size: 14px">Cookies werden zur Benutzerführung und Webanalyse verwendet und
@@ -26,6 +24,8 @@
         </v-row>
       </v-card>
     </v-overlay>
+
+
   </v-app>
 </template>
 
@@ -41,10 +41,13 @@ export default {
 
     allowCookies: function () {
       this.$cookies.set('cookiesAllowed', true)
+      this.cookieDialog = false;
     },
 
     denyCookies: function () {
       this.$session.set('cookiesDenied', true)
+      this.cookieDialog = false;
+
     }
 
   },
@@ -60,11 +63,14 @@ export default {
 
 
     if (this.$cookies.isKey('cookiesAllowed')) {
-      console.log("Cookies sind erlaubt!")
+      //console.log("Cookies sind erlaubt!")
+      return false;
     } else if (this.$session.has('cookiesDenied')) {
-      console.log("Cookies sind verboten!")
+      //console.log("Cookies sind verboten!")
+      return false;
     } else {
       this.cookieDialog = true
+      return false;
     }
 
 

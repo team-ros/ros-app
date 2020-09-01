@@ -25,7 +25,7 @@ export default {
 
   props: {
     filetype: String,
-    filesize: String,
+    filesize: Number,
     filename: {type: String, default: "NaN"}
   },
 
