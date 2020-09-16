@@ -28,7 +28,7 @@
           ></v-text-field>
 
           <router-link to="/passwordrecovery">
-            <p style="font-size: 12px; text-align: right">
+            <p class="smalltextsize" style="text-align: right">
               Passwort vergessen?
             </p>
           </router-link>
@@ -40,37 +40,42 @@
               block
               color="#0044b2"
               depressed
-              style="color: #eeeeee"
+              style="color: #eeeeee;"
+              class="normaltextsize"
           >Login
           </v-btn>
 
           <v-btn
-              class="my-4"
+              class="my-4 normaltextsize"
               @click="loginWithGoogle"
               block
               color="grey"
               depressed
               style="color: #eeeeee"
+
           >Login with Google
           </v-btn>
 
-          <div style="text-align: center">
-            <div class="mt-8">
-            <span
-                class="mr-2"
-                style="font-size: 12px; text-align: center; margin-top: 4px"
-            >
-              Keinen Account?
-            </span>
-              <router-link style="font-size: 12px; text-decoration: underline" to="/register">
-                <span>Registrieren</span>
+          <div>
+            <div class="mt-2">
+
+              <router-link class="smalltextsize" to="/register">
+                <p style="text-align: right">
+                  Noch keinen Account?
+                </p>
               </router-link>
             </div>
 
-            <div class="mt-6">
-              <router-link style="font-size: 12px;" to="/impressum">
+            <div style="text-align: center" class="mt-12">
+              <router-link class="smalltextsize" style="margin-right: 5px" to="/impressum">
                 <span> Impressum </span>
               </router-link>
+              <span style="font-size: 20px; color: grey!important;">
+                |
+              </span>
+              <a href="http://www.google.com" class="smalltextsize" style=" margin-left: 5px">
+                <span> DSGVO </span>
+              </a>
             </div>
           </div>
         </v-card>
@@ -129,19 +134,16 @@ export default {
               email: user.email
             };
 
+            self.$cookies.set("user", tempUser);
 
-            if(self.$cookies.isKey('cookiesAllowed')) {
-              self.$cookies.set("user", tempUser);
-            }else {
-              self.$session.set("user", tempUser);
-            }
+
+
+
             user.getIdToken().then(token => {
 
-              if(self.$cookies.isKey('cookiesAllowed')) {
+
                 self.$cookies.set("token", token);
-              }else {
-                self.$session.set("token", token);
-              }
+
 
             })
 
@@ -193,6 +195,10 @@ export default {
 <style scoped>
 .v-card:not(.v-sheet--tile):not(.v-card--shaped) {
   border-radius: 0px !important;
+}
+
+.v-application .mt-10 {
+  margin-top: 0px!important;
 }
 
 p,

@@ -3,8 +3,8 @@
     <div class="pa-3">
       <div style="width: 40px; float: left; margin-left: 5px" v-html="icon">
       </div>
-      <span style=" margin-top: 2px!important;float: left; font-size: 14px">{{ filename }}.{{ filetype }} </span>
-      <span style=" margin-top: 2px!important; margin-left: 20px; float: right; font-size: 14px">{{
+      <span style=" margin-top: 2px!important;float: left;" class="filenamesize">{{ filename }}.{{ filetype }} </span>
+      <span style=" margin-top: 2px!important; margin-left: 20px; float: right;" class="filenamesize">{{
           filesize | prettyBytes
         }} </span>
       <div style="clear: both"></div>

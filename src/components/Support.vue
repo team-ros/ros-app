@@ -10,7 +10,7 @@
         <h1 class="mb-10">Support</h1>
         <p class="mb-1" style="margin-top: -35px">
         </p>
-        <div class="mt-12" style="font-size: 13px">
+        <div class="mt-12 normaltextsize" >
           Wenn Sie Hilfe brauchen wenden Sie sich bitte an den Support!
         </div>
         <v-btn class="mt-12" block color="#0044b2" depressed style="color: #eeeeee"

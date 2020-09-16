@@ -8,7 +8,7 @@
     <v-row>
       <v-col class="col-12 mt-6">
         <h1 class="mb-8">Registrieren</h1>
-        <p class="mb-1" style="margin-top: -28px; font-size: 14px">
+        <p class="mb-1 normaltextsize" style="margin-top: -28px;">
           Hier können Sie sich registrieren, wenn
           Sie noch keinen Account haben.</p>
         <v-card flat class="pa-4" color="#eee" >

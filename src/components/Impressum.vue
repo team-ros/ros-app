@@ -10,7 +10,7 @@
         <h1 class="mb-10">Impressum</h1>
         <p class="mb-1" style="margin-top: -35px">
         </p>
-        <div class="mt-12" style="font-size: 13px">
+        <div class="mt-12 normaltextsize">
           <p> Für diese App verantwortlicher Herausgeber:</p>
           <p> Sharon Chaveiro </p>
           <p class="ma-0"> Rennweg 89B</p>
@@ -21,9 +21,9 @@
           <p class="ma-0"> E-Mail: chaveiro@ros-cloud.at</p>
           <p class="ma-0"> Internet: www.ros-cloud.at</p>
         </div>
-        <div class="mt-6" style="font-size: 13px">
+        <div class="mt-12 normaltextsize">
           <p> Für etwaige Fragen wenden Sie sich an den Support unter der E-Mail-Adresse:
-            info@ros-cloud.at. </p>
+            info@ros-cloud.at </p>
         </div>
 
 

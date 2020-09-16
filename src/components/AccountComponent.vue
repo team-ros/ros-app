@@ -8,7 +8,7 @@
     <div>
       <v-col class="col-12 mt-6">
         <h1 class="mb-10">Account</h1>
-        <p class="mb-1" style="margin-top: -35px">
+        <p class="mb-1 normaltextsize" style="margin-top: -35px">
           Hier sind Ihre Accountinformationen zu sehen.
         </p>
         <div class="mt-12">
