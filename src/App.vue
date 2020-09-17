@@ -41,20 +41,20 @@ export default {
 
 $font: 'Montserrat', sans-serif !important
 $backgroundcolor: #eee
-$rosblue: #0044b2 !important
-$smalltextsize: 12px
+$rosblue: #0044b2
+$smalltextsize: 13px
 $normaltextsize: 16px
+$headingsize: 25px
 $filenamesize: 14px
+$linkinblack: black
 
 
 #app
   font-family: $font
   background: $backgroundcolor
-n
 
 h1, h2, h3, h4
   color: black
-
 
 a
   color: $rosblue
@@ -68,5 +68,15 @@ a
 
 .filenamesize
   font-size: $filenamesize!important
+
+.linkinblack
+  color: $linkinblack!important
+
+.headingsize
+  font-size: $headingsize!important
+
+.rosblue
+  background-color: $rosblue!important
+
 
 </style>

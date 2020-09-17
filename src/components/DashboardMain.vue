@@ -102,24 +102,24 @@
 
         <i @click="menuDialog = false" class="fas fa-arrow-left fa-lg mt-6"></i>
 
-        <h2 class="mb-4 mt-6">Projektwebsite</h2>
+        <h2 class="mb-4 mt-6 headingsize">Projektwebsite</h2>
 
 
-        <a href=""><p class="blackLink">ROS Cloud</p></a>
-        <h2 class="mt-12 mb-4">Social Media</h2>
+        <a href=""><p class="blackLink normaltextsize">ROS Cloud</p></a>
+        <h2 class="mt-12 mb-4 headingsize">Social Media</h2>
         <a href="https://www.instagram.com/ros_cloud/" class="blackLink"><i style="float: left; margin-right: 5px; margin-top: 3px"
                                                           class="fab fa-instagram"></i>
-          <p>Instagram</p></a>
+          <p class="normaltextsize">Instagram</p></a>
         <a href="https://twitter.com/cloud_ros/" class="blackLink"><i style="float: left; margin-right: 5px; margin-top: 3px"
                                                     class="fab fa-twitter"></i>
-          <p>Twitter</p></a>
+          <p class="normaltextsize">Twitter</p></a>
         <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/" class="blackLink"
         ><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-linkedin-in"></i>
-          <p>LinkedIn</p></a
+          <p class="normaltextsize">LinkedIn</p></a
         >
-        <h2 class="mt-12 mb-4"> Hilfe </h2>
-        <router-link class="blackLink" to="/impressum"><p>Impressum</p></router-link>
-        <router-link class="blackLink" to="/support"><p>Support</p></router-link>
+        <h2 class="mt-12 mb-4 headingsize"> Hilfe </h2>
+        <router-link class="blackLink normaltextsize" to="/impressum"><p>Impressum</p></router-link>
+        <router-link class="blackLink normaltextsize" to="/support"><p>Support</p></router-link>
 
       </v-card>
 

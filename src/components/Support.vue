@@ -7,13 +7,13 @@
 
 
       <v-col class="col-12 mt-6">
-        <h1 class="mb-10">Support</h1>
+        <h1 class="mb-10 headingsize">Support</h1>
         <p class="mb-1" style="margin-top: -35px">
         </p>
         <div class="mt-12 normaltextsize" >
           Wenn Sie Hilfe brauchen wenden Sie sich bitte an den Support!
         </div>
-        <v-btn class="mt-12" block color="#0044b2" depressed style="color: #eeeeee"
+        <v-btn class="mt-12 rosblue" block  depressed style="color: #eeeeee"
         >E-MAIL AN DEN SUPPORT
         </v-btn>
 

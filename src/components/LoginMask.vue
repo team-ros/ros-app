@@ -7,7 +7,7 @@
 
       <v-col class="col-12 mt-6">
         <v-card color="#eee" flat class="pa-4">
-          <h1 style="text-align: center; font-size: 25px" class="mb-8">
+          <h1 style="text-align: center" class="mb-8 headingsize">
             Willkommen!
           </h1>
 
@@ -28,7 +28,7 @@
           ></v-text-field>
 
           <router-link to="/passwordrecovery">
-            <p class="smalltextsize" style="text-align: right">
+            <p class="smalltextsize linkinblack" style="text-align: right">
               Passwort vergessen?
             </p>
           </router-link>
@@ -59,7 +59,7 @@
           <div>
             <div class="mt-2">
 
-              <router-link class="smalltextsize" to="/register">
+              <router-link class="smalltextsize linkinblack" to="/register">
                 <p style="text-align: right">
                   Noch keinen Account?
                 </p>
@@ -67,13 +67,13 @@
             </div>
 
             <div style="text-align: center" class="mt-12">
-              <router-link class="smalltextsize" style="margin-right: 5px" to="/impressum">
+              <router-link class="smalltextsize linkinblack" style="margin-right: 5px" to="/impressum">
                 <span> Impressum </span>
               </router-link>
               <span style="font-size: 20px; color: grey!important;">
                 |
               </span>
-              <a href="http://www.google.com" class="smalltextsize" style=" margin-left: 5px">
+              <a href="http://www.google.com" class="smalltextsize linkinblack" style=" margin-left: 5px">
                 <span> DSGVO </span>
               </a>
             </div>
