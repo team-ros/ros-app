@@ -120,6 +120,8 @@
         <h2 class="mt-12 mb-4 headingsize"> Hilfe </h2>
         <router-link class="blackLink normaltextsize" to="/impressum"><p>Impressum</p></router-link>
         <router-link class="blackLink normaltextsize" to="/support"><p>Support</p></router-link>
+        <a href="https://www.google.com/" class="blackLink">
+          <p class="normaltextsize">DSGVO</p></a>
 
       </v-card>
 

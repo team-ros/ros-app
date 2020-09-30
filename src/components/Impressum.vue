@@ -12,13 +12,12 @@
         </p>
         <div class="mt-12 normaltextsize">
           <p> Für diese App verantwortlicher Herausgeber:</p>
-          <p> Sharon Chaveiro </p>
+          <p> Team ROS </p>
           <p class="ma-0"> Rennweg 89B</p>
           <p class="ma-0"> 1030 Wien</p>
           <p> Österreich</p>
 
-          <p class="ma-0"> Telefon: +43 660 9 26 35 81</p>
-          <p class="ma-0"> E-Mail: chaveiro@ros-cloud.at</p>
+          <p class="ma-0"> E-Mail: team@ros-cloud.at</p>
           <p class="ma-0"> Internet: www.ros-cloud.at</p>
         </div>
         <div class="mt-12 normaltextsize">
@@ -26,7 +25,9 @@
             info@ros-cloud.at </p>
         </div>
 
-
+        <v-col class="col-12 mt-12 text-center">
+          <img width="30%" src="../assets/ROS_Logo.png"/>
+        </v-col>
 
 
       </v-col>
