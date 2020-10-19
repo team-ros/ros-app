@@ -3,6 +3,14 @@
     <v-container style="position: fixed; top:0px">
       <v-row>
         <v-col class="col-12 px-6">
+          <v-btn @click="createFolder"></v-btn>
+          <v-btn @click="listFolder"></v-btn>
+
+          <v-file-input
+              @change="selectFile"
+          ></v-file-input>
+
+
           <div style="height: 60px; width: 100%; color: #0044b2;">
             <span style="font-weight: 700; font-size: 18px">ROS</span>
             <span @click="menuDialog=true" style="float: right "> <i
@@ -107,11 +115,13 @@
 
         <a href=""><p class="blackLink normaltextsize">ROS Cloud</p></a>
         <h2 class="mt-12 mb-4 headingsize">Social Media</h2>
-        <a href="https://www.instagram.com/ros_cloud/" class="blackLink"><i style="float: left; margin-right: 5px; margin-top: 3px"
-                                                          class="fab fa-instagram"></i>
+        <a href="https://www.instagram.com/ros_cloud/" class="blackLink"><i
+            style="float: left; margin-right: 5px; margin-top: 3px"
+            class="fab fa-instagram"></i>
           <p class="normaltextsize">Instagram</p></a>
-        <a href="https://twitter.com/cloud_ros/" class="blackLink"><i style="float: left; margin-right: 5px; margin-top: 3px"
-                                                    class="fab fa-twitter"></i>
+        <a href="https://twitter.com/cloud_ros/" class="blackLink"><i
+            style="float: left; margin-right: 5px; margin-top: 3px"
+            class="fab fa-twitter"></i>
           <p class="normaltextsize">Twitter</p></a>
         <a href="https://www.linkedin.com/in/ros-cloud-5b53aa1b0/" class="blackLink"
         ><i style="float: left; margin-right: 5px; margin-top: 3px" class="fab fa-linkedin-in"></i>
@@ -135,6 +145,7 @@
 
 import firebase from "firebase";
 import DashboardEntry from "@/components/DashboardEntry";
+import api from "@/api";
 
 
 export default {
@@ -179,6 +190,36 @@ export default {
     }
   },
   methods: {
+
+
+    async createFolder() {
+      try {
+        const response = await api.object().createDir('test', "13a3acd5-fcdd-40c9-bede-93f024cf60a3")
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+    async listFolder() {
+      try {
+        const response = await api.object().get('13a3acd5-fcdd-40c9-bede-93f024cf60a3')
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
+
+    async selectFile(val) {
+      try {
+        const response = await api.object().upload(val)
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
     logout: function () {
 
       let self = this;
@@ -250,11 +291,11 @@ export default {
 
       // let tmpFolder = folder.id
 
-      if(this.depth == 0){
+      if (this.depth == 0) {
         this.lastLocation[this.lastLocation.length] = this.ApiResponse.files;
-      }else{
+      } else {
         console.log(this.lastLocation)
-        console.log( this.lastLocation[this.lastLocation.length])
+        console.log(this.lastLocation[this.lastLocation.length])
         //  this.lastLocation[this.lastLocation.length] = this.ApiResponse.files.find(x => x.id === folder.id)
       }
 
@@ -277,6 +318,7 @@ export default {
   },
 
   computed: {
+
     filteredList() {
       return this.ApiResponse.files.filter(file => {
         return file.name.toLowerCase().includes(this.search.toLowerCase())
@@ -288,9 +330,16 @@ export default {
     DashboardEntry
   },
 
-  mounted() {
+  async mounted() {
 
+    api.token().set(localStorage.getItem('token'))
 
+    try {
+      const response = await api.object().get()
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
 
   }
 };
@@ -308,8 +357,8 @@ export default {
 
 }
 
-.blackLink{
-  color: black!important;
+.blackLink {
+  color: black !important;
 }
 
 table {

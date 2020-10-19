@@ -91,7 +91,8 @@
 
 
 import firebase from "firebase";
-// import {API} from "ros-sdk-js"
+import api from "@/api";
+
 
 export default {
   name: "Login",
@@ -104,12 +105,8 @@ export default {
     };
   },
   methods: {
-
-
     loginWithGoogle: function () {
-
       let self = this;
-
       const GoogleProvider = new firebase.auth.GoogleAuthProvider()
 
       GoogleProvider.addScope('profile')
@@ -136,56 +133,17 @@ export default {
 
             self.$cookies.set("user", tempUser);
 
-
-
-
             user.getIdToken().then(token => {
-
-
-                self.$cookies.set("token", token);
-
-
+            api.token().set(token)
+              self.$router.push("/");
             })
 
           }
         });
 
 
-        // const  api = new  API("https://api.dev.ros-cloud.at/")
-
-       // let token = null;
-
-       // api.storeToken(token)
-
-       // if(self.$cookies.isKey('cookiesAllowed')){
-        // this.token = this.$cookies.get('token')
-        // }else{
-        //  this.token = this.$session.get('token')
-
-        //
-        //
-        //
-        // api.user().authenticate("register")
-        //     .then( result  => {
-        //       if( result.status ) {
-        //         console.log(result)
-        //       }
-        //       if( !result.status ) {
-        //         console.log(result)
-        //       }
-        //     })
-        //     .catch(err => { console.log(err)})
-        //
-        // console.log("API")
-
-        self.$router.push("/");
-
-
       });
-
-
     }
-
   },
 
 
