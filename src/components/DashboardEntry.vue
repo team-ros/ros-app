@@ -3,7 +3,7 @@
     <div class="pa-3">
       <div style="width: 40px; float: left; margin-left: 5px" v-html="icon">
       </div>
-      <span style=" margin-top: 2px!important;float: left;" class="filenamesize">{{ filename }}.{{ filetype }} </span>
+      <span style=" margin-top: 2px!important;float: left;" class="filenamesize">{{ filename }} </span>
       <span style=" margin-top: 2px!important; margin-left: 20px; float: right;" class="filenamesize">{{
           filesize | prettyBytes
         }} </span>
@@ -19,17 +19,22 @@ export default {
   name: "DashboardEntry",
   data() {
     return {
-      icon: ""
+      icon: "",
+      filetype: ""
     }
   },
 
   props: {
-    filetype: String,
     filesize: Number,
     filename: {type: String, default: "NaN"}
   },
 
   mounted() {
+
+    const re = /(?:\.([^.]+))?$/;
+    this.filetype = re.exec(this.filename)[1];
+
+    console.log(this.filename)
 
     if (this.filetype == "pdf") {
       this.icon = "<i class=\"far blueAccent fa-file-pdf fa-lg\"></i>"

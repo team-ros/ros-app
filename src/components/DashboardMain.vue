@@ -1,16 +1,8 @@
 <template>
-  <div>
-    <v-container style="position: fixed; top:0px">
+  <div v-if="responseLoaded">
+    <v-container style="position: fixed; top:0">
       <v-row>
         <v-col class="col-12 px-6">
-          <v-btn @click="createFolder"></v-btn>
-          <v-btn @click="listFolder"></v-btn>
-
-          <v-file-input
-              @change="selectFile"
-          ></v-file-input>
-
-
           <div style="height: 60px; width: 100%; color: #0044b2;">
             <span style="font-weight: 700; font-size: 18px">ROS</span>
             <span @click="menuDialog=true" style="float: right "> <i
@@ -49,9 +41,17 @@
         </v-row>
       </v-container>
 
-      <v-container class="pa-0">
+      <v-file-input
+          @change="selectFile"
+          solo
+          dense
+      ></v-file-input>
+
+      <v-container style="margin-top: 10px " class="pa-0">
         <v-row no-gutters>
           <v-col class="col-12 mt-6">
+
+
 
             <v-btn v-if="depth > 0" @click="backFolder" icon>
               <v-icon>mdi-arrow-left</v-icon>
@@ -61,11 +61,13 @@
               <tr v-for="entry in filteredList" :key="entry.id">
                 <td v-if="entry.filetype !== 'folder'" @click="openOptions(entry)">
                   <DashboardEntry
-                      :filetype="entry.filetype"
+                      :filetype="entry.type"
                       :filename="entry.name"
                       :filesize="entry.size"></DashboardEntry>
 
                 </td>
+
+
                 <td v-else @click="openFolder(entry)">
                   <DashboardEntry
                       :filename="entry.name"></DashboardEntry>
@@ -103,7 +105,7 @@
 
     </v-dialog>
 
-    <v-overlay z-index="300" color="#eee" style="color:#000;" opacity="1" :value="menuDialog">
+    <v-overlay z-index="300" color="#eee" style=" color:#000;" opacity="1" :value="menuDialog">
 
       <v-card flat color="#eee" class="pa-12" light width="100vw" height="100vh">
 
@@ -152,6 +154,7 @@ export default {
   name: "DashboardMain",
   data() {
     return {
+      responseLoaded: false,
       fileDialog: false,
       filterDialog: false,
       selectedFile: {},
@@ -159,6 +162,7 @@ export default {
       menuDialog: false,
       depth: 0,
       lastLocation: [],
+      response: {},
       ApiResponse: {
 
         files: [
@@ -209,7 +213,6 @@ export default {
         console.log(err)
       }
     },
-
 
     async selectFile(val) {
       try {
@@ -320,7 +323,7 @@ export default {
   computed: {
 
     filteredList() {
-      return this.ApiResponse.files.filter(file => {
+      return this.response.listing.filter(file => {
         return file.name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
@@ -330,16 +333,19 @@ export default {
     DashboardEntry
   },
 
-  async mounted() {
+  mounted() {
+
 
     api.token().set(localStorage.getItem('token'))
+    api.object().get()
+        .then(response => {
+          this.responseLoaded = true
+          this.response = response
+        })
+        .catch(err => {
+          console.log(err)
+        })
 
-    try {
-      const response = await api.object().get()
-      console.log(response)
-    } catch (err) {
-      console.log(err)
-    }
 
   }
 };
