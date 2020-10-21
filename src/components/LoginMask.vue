@@ -36,7 +36,6 @@
           <div style="margin-top: 50px"></div>
 
           <v-btn
-              @click="login"
               block
               color="#0044b2"
               depressed
@@ -93,7 +92,6 @@
 import firebase from "firebase";
 import api from "@/api";
 
-
 export default {
   name: "Login",
   data() {
@@ -132,16 +130,12 @@ export default {
             };
 
             self.$cookies.set("user", tempUser);
-
             user.getIdToken().then(token => {
             api.token().set(token)
               self.$router.push("/");
             })
-
           }
         });
-
-
       });
     }
   },
