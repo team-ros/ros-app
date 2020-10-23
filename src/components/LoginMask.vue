@@ -123,7 +123,7 @@ export default {
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
 
-            // speichern uns hier mal testweise den user
+            // Hier speicher ich mir uns mal testweise den User
             // den wir von Firebase zurückbekommen
             let tempUser = {
               id: user.uid,
@@ -133,7 +133,7 @@ export default {
             };
             self.$cookies.set("user", tempUser);
 
-            // hier bekommen wir unseren token den wir an die API
+            // hier bekommen wir unseren Token, den wir an die API
             // übergeben um uns in der API zu verifizieren
 
             user.getIdToken().then(token => {
