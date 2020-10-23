@@ -32,7 +32,7 @@
     "firebase": "^7.19.1",
     "node": "^14.8.0",
     "pretty-bytes": "^5.4.1",
-    "ros-sdk-js": "git+https://github.com/team-ros/ros-sdk-js.git",
+    "ros-sdk-js": "^2.1.0",
     "vue": "^2.6.12",
     "vue-cookies": "^1.7.4",
     "vue-directive-long-press": "^1.1.0",
