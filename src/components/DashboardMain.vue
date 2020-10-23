@@ -195,7 +195,7 @@ export default {
   },
   methods: {
 
-
+    // test api call für ordner erstellen
     async createFolder() {
       try {
         const response = await api.object().createDir('test', "13a3acd5-fcdd-40c9-bede-93f024cf60a3")
@@ -205,6 +205,7 @@ export default {
       }
     },
 
+    // test api call für bestimmten ordnerinhalt anzeigen
     async listFolder() {
       try {
         const response = await api.object().get('13a3acd5-fcdd-40c9-bede-93f024cf60a3')
@@ -214,6 +215,7 @@ export default {
       }
     },
 
+    // upload funktion um datein in die cloud zu laden
     async selectFile(val) {
       try {
         const response = await api.object().upload(val)
@@ -335,10 +337,22 @@ export default {
 
   mounted() {
 
-
+    // hier müssen wir aufgrund eines bugs den token aus dem
+    // localstorage holen und wieder an die API übergeben
+    // das fällt mit dem bugfix wieder raus
     api.token().set(localStorage.getItem('token'))
+
+    // hier holen wir sobald die seite geladen hat den
+    // root ordner und den inhalt dessen
+
     api.object().get()
         .then(response => {
+          // this.responseLoaded verwenden wir weil wir erst die
+          // seite mit daten befüllen wollen sobald wir diese von
+          // der API bekommen haben
+
+          //wird ganz oben im template überprüft ob true
+          // default: false
           this.responseLoaded = true
           this.response = response
         })

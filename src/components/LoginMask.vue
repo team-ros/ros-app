@@ -122,14 +122,20 @@ export default {
 
         firebase.auth().onAuthStateChanged(function(user) {
           if (user) {
+
+            // speichern uns hier mal testweise den user
+            // den wir von Firebase zurückbekommen
             let tempUser = {
               id: user.uid,
               vorname: user.displayName.split(' ')[0],
               nachname: user.displayName.split(' ')[1],
               email: user.email
             };
-
             self.$cookies.set("user", tempUser);
+
+            // hier bekommen wir unseren token den wir an die API
+            // übergeben um uns in der API zu verifizieren
+
             user.getIdToken().then(token => {
             api.token().set(token)
               self.$router.push("/");
