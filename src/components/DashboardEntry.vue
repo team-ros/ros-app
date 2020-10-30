@@ -34,7 +34,6 @@ export default {
     const re = /(?:\.([^.]+))?$/;
     this.filetype = re.exec(this.filename)[1];
 
-    console.log(this.filename)
 
     if (this.filetype == "pdf") {
       this.icon = "<i class=\"far blueAccent fa-file-pdf fa-lg\"></i>"
