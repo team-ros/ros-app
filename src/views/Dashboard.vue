@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import DashboardFooter from "../components/DashboardFooter";
 import DashboardMain from "../components/DashboardMain";
 
 export default {
@@ -14,7 +13,6 @@ export default {
   },
 
   components: {
-  // DashboardFooter,
     DashboardMain
   }
 };
