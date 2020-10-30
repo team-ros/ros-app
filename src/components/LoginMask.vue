@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-10">
+  <v-container class="pa-10 login">
     <v-row>
       <v-col class="col-12 mt-10 text-center">
         <img width="68%" src="../assets/ROS_Logo.png"/>
@@ -7,7 +7,7 @@
 
       <v-col class="col-12 mt-6">
         <v-card color="#eee" flat class="pa-4">
-          <h1 style="text-align: center" class="mb-8 headingsize">
+          <h1 class="mb-8 headingsize text-center">
             Willkommen!
           </h1>
 
@@ -28,29 +28,27 @@
           ></v-text-field>
 
           <router-link to="/passwordrecovery">
-            <p class="smalltextsize linkinblack" style="text-align: right">
+            <p class="smalltextsize linkinblack text-right">
               Passwort vergessen?
             </p>
           </router-link>
 
-          <div style="margin-top: 50px"></div>
+          <div class="mt-12"></div>
 
           <v-btn
               block
               color="#0044b2"
               depressed
-              style="color: #eeeeee;"
-              class="normaltextsize"
+              class="normaltextsize color_eee"
           >Login
           </v-btn>
 
           <v-btn
-              class="my-4 normaltextsize"
+              class="my-4 normaltextsize color_eee"
               @click="loginWithGoogle"
               block
               color="grey"
               depressed
-              style="color: #eeeeee"
 
           >Login with Google
           </v-btn>
@@ -59,20 +57,20 @@
             <div class="mt-2">
 
               <router-link class="smalltextsize linkinblack" to="/register">
-                <p style="text-align: right">
+                <p class="text-right">
                   Noch keinen Account?
                 </p>
               </router-link>
             </div>
 
-            <div style="text-align: center" class="mt-12">
-              <router-link class="smalltextsize linkinblack" style="margin-right: 5px" to="/impressum">
+            <div class="mt-12 text-center">
+              <router-link class="smalltextsize linkinblack" to="/impressum">
                 <span> Impressum </span>
               </router-link>
-              <span style="font-size: 20px; color: grey!important;">
+              <span class="footer">
                 |
               </span>
-              <a href="http://www.google.com" class="smalltextsize linkinblack" style=" margin-left: 5px">
+              <a href="http://www.google.com" class="smalltextsize linkinblack">
                 <span> DSGVO </span>
               </a>
             </div>
@@ -149,23 +147,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-.v-card:not(.v-sheet--tile):not(.v-card--shaped) {
-  border-radius: 0px !important;
-}
-
-.v-application .mt-10 {
-  margin-top: 0px!important;
-}
-
-p,
-span,
-h1,
-h2,
-h3,
-h4,
-h5 {
-  color: black !important;
-}
-</style>
