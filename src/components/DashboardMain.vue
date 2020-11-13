@@ -38,9 +38,6 @@
     <v-container class="pa-0" style="margin-bottom: 100px!important; margin-top: 120px">
       <v-row no-gutters>
         <v-col class="col-12 mt-6">
-          <v-btn v-if="depth > 0" icon @click="backFolder">
-            <v-icon>mdi-arrow-left</v-icon>
-          </v-btn>
           <table width="100%">
             <tr v-for="entry in filteredList" :key="entry.id">
               <td v-if="entry.filetype !== 'folder'" @click="openOptions(entry)">
@@ -141,34 +138,7 @@ export default {
       selectedFile: {},
       search: '',
       menuDialog: false,
-      depth: 0,
-      lastLocation: [],
       response: {},
-      ApiResponse: {
-        files: [
-          {id: 1, name: "Test1", filetype: "pdf", size: 8898171},
-          {id: 2, name: "Test2", filetype: "pdf", size: 12331},
-          {id: 3, name: "Testbild", filetype: "jpg", size: 23112231},
-          {id: 4, name: "Test3", filetype: "txt", size: 3221},
-          {id: 5, name: "Worddatei1", filetype: "docx", size: 1233},
-          {id: 6, name: "Worddatei2", filetype: "csv", size: 5123312},
-          {id: 7, name: "AAAAA", filetype: "avasdasdi", size: 122},
-          {
-            id: 8, name: "IchBinEinOrdner", filetype: "folder", files: [
-              {id: 9, name: "Test1", filetype: "pdf", size: 8898171},
-              {
-                id: 8, name: "IchBinEinOrdner", filetype: "folder", files: [
-                  {id: 13, name: "Test3", filetype: "txt", size: 3221},
-                  {id: 14, name: "Worddatei1", filetype: "docx", size: 1233},
-                ]
-              },
-              {id: 10, name: "Test2", filetype: "pdf", size: 12331},
-              {id: 11, name: "Testbild", filetype: "jpg", size: 23112231},
-              {id: 12, name: "Test3", filetype: "txt", size: 3221},
-            ]
-          },
-        ]
-      }
     }
   },
   methods: {
@@ -264,27 +234,6 @@ export default {
       });
       this.filterDialog = false;
     },
-    openFolder: function (folder) {
-      // let tmpFolder = folder.id
-      if (this.depth == 0) {
-        this.lastLocation[this.lastLocation.length] = this.ApiResponse.files;
-      } else {
-        console.log(this.lastLocation)
-        console.log(this.lastLocation[this.lastLocation.length])
-        //  this.lastLocation[this.lastLocation.length] = this.ApiResponse.files.find(x => x.id === folder.id)
-      }
-      this.ApiResponse.files = folder.files
-      this.depth++;
-      console.log("OPENED FOLDER")
-      console.log(this.depth)
-    },
-    backFolder: function () {
-      this.ApiResponse.files = this.lastLocation[this.depth]
-      this.depth--;
-      console.log("BACK")
-      console.log(this.depth)
-      console.log(this.lastLocation)
-    }
   },
   computed: {
     filteredList() {
@@ -303,6 +252,7 @@ export default {
     api.token().set(localStorage.getItem('token'))
     // hier holen wir sobald die Seite geladen hat den
     // Rootordner und den Inhalt dessen
+
     api.object().get()
         .then(response => {
           console.log(response)

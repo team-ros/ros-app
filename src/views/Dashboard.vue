@@ -5,10 +5,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
-// import DashboardFooter from "../components/DashboardFooter";
->>>>>>> master
+
 import DashboardMain from "../components/DashboardMain";
 
 export default {
@@ -17,10 +14,6 @@ export default {
   },
 
   components: {
-<<<<<<< HEAD
-=======
-  // DashboardFooter,
->>>>>>> master
     DashboardMain
   }
 };
