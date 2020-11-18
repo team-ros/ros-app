@@ -10,7 +10,7 @@
 
 <script>
 
-import firebase from "firebase";
+import api from "@/api";
 
 export default {
   name: "DashboardFooter",
@@ -21,7 +21,7 @@ export default {
     logout: function () {
 
       let self = this;
-      firebase.auth().signOut().catch(function (error) {
+      api.auth().signOut().catch(function (error) {
         //Falls beim LogOut ein Fehler ist ->
         console.log(error)
       }).then(function () {

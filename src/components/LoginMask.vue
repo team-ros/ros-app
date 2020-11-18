@@ -87,7 +87,7 @@
 <script>
 
 
-import firebase from "firebase";
+
 import api from "@/api";
 
 export default {
@@ -103,14 +103,14 @@ export default {
   methods: {
     loginWithGoogle: function () {
       let self = this;
-      const GoogleProvider = new firebase.auth.GoogleAuthProvider()
+      const GoogleProvider = new api.auth.GoogleAuthProvider()
 
       GoogleProvider.addScope('profile')
       GoogleProvider.addScope('email')
 
-      firebase.auth().useDeviceLanguage()
-
-      firebase.auth().signInWithPopup(GoogleProvider)
+      api.auth().useDeviceLanguage()
+      console.log(GoogleProvider)
+      api.auth().signInWithPopup(GoogleProvider)
           .catch(error => {
             // Wenn ein Fehler beim Anmelden auftritt:
             console.log(error)
@@ -118,18 +118,8 @@ export default {
 
         //Wenn kein Fehler auftritt gehts hier weiter
 
-        firebase.auth().onAuthStateChanged(function(user) {
+        api.auth().onAuthStateChanged(function(user) {
           if (user) {
-
-            // Hier speicher ich mir uns mal testweise den User
-            // den wir von Firebase zurückbekommen
-            let tempUser = {
-              id: user.uid,
-              vorname: user.displayName.split(' ')[0],
-              nachname: user.displayName.split(' ')[1],
-              email: user.email
-            };
-            self.$cookies.set("user", tempUser);
 
             // hier bekommen wir unseren Token, den wir an die API
             // übergeben um uns in der API zu verifizieren
