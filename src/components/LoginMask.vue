@@ -36,6 +36,7 @@
           <div class="mt-12"></div>
 
           <v-btn
+               @click="login"
               block
               color="#0044b2"
               depressed
@@ -79,7 +80,7 @@
       </v-col>
     </v-row>
     <v-snackbar v-model="loginError" :timeout="2000" color="error">
-      Email oder Passwort leer. Bitte überprüfen.
+      {{errorMessage}}
     </v-snackbar>
   </v-container>
 </template>
@@ -97,20 +98,21 @@ export default {
       password: "",
       email: "",
       show: false,
-      loginError: false
+      loginError: false,
+      errorMessage: "",
     };
   },
   methods: {
     loginWithGoogle: function () {
       let self = this;
-      const GoogleProvider = new api.auth.GoogleAuthProvider()
+      const PreGoogleProvider = api.firebase().auth;
+      const GoogleProvider = new PreGoogleProvider.GoogleAuthProvider();
 
       GoogleProvider.addScope('profile')
       GoogleProvider.addScope('email')
 
-      api.auth().useDeviceLanguage()
-      console.log(GoogleProvider)
-      api.auth().signInWithPopup(GoogleProvider)
+      api.firebase().auth().useDeviceLanguage()
+      api.firebase().auth().signInWithPopup(GoogleProvider)
           .catch(error => {
             // Wenn ein Fehler beim Anmelden auftritt:
             console.log(error)
@@ -118,19 +120,23 @@ export default {
 
         //Wenn kein Fehler auftritt gehts hier weiter
 
-        api.auth().onAuthStateChanged(function(user) {
+        api.firebase().auth().onAuthStateChanged(function(user) {
           if (user) {
-
-            // hier bekommen wir unseren Token, den wir an die API
-            // übergeben um uns in der API zu verifizieren
-
-            user.getIdToken().then(token => {
-            api.token().set(token)
-              self.$router.push("/");
-            })
+            self.$router.push("/");
           }
         });
       });
+    },
+    login: function () {
+      api.firebase().auth().signInWithEmailAndPassword(this.email, this.password)
+          .then(() => {
+           this.$router.push("/");
+          })
+          .catch((error) => {
+            this.errorMessage = error.message
+            this.loginError = true
+          });
+
     }
   },
 

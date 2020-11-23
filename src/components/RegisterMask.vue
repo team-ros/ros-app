@@ -1,125 +1,124 @@
 <template>
-  <v-container class="pa-10">
-    <router-link to="/login">
-      <v-btn icon>
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-    </router-link>
-    <v-row>
-      <v-col class="col-12 mt-6">
-        <h1 class="mb-8 headingsize">Registrieren</h1>
-        <p class="mb-1 normaltextsize" style="margin-top: -28px;">
-          Hier können Sie sich registrieren, wenn
-          Sie noch keinen Account haben.</p>
-        <v-card flat class="pa-4" color="#eee" >
-          <v-text-field
-            color="#0044b2"
-            class=" mt-13 mb-44"
-            label="Vorname"
-            type="vorname"
-            v-model="vorname"
-          ></v-text-field>
-          <v-text-field
-            color="#0044b2"
-            class="my-2"
-            label="Nachname"
-            type="nachname"
-            v-model="nachname"
-          ></v-text-field>
+    <v-container class="pa-10">
+        <router-link to="/login">
+            <v-btn icon>
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+        </router-link>
+        <v-row>
+            <v-col class="col-12 mt-6">
+                <h1 class="mb-8 headingsize">Registrieren</h1>
+                <p class="mb-1 normaltextsize" style="margin-top: -28px;">
+                    Hier können Sie sich registrieren, wenn
+                    Sie noch keinen Account haben.</p>
+                <v-card class="pa-4" color="#eee" flat>
 
-          <v-text-field
-            color="#0044b2"
-            class="my-2"
-            label="E-Mail"
-            type="email"
-            v-model="email"
-          ></v-text-field>
 
-          <v-text-field
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="show ? 'text' : 'password'"
-            @click:append="show = !show"
-            color="#0044b2"
-            label="Passwort"
-            v-model="password"
-            class="my-2"
-          ></v-text-field>
+                    <v-text-field
+                        v-model="email"
+                        class="my-2"
+                        color="#0044b2"
+                        label="E-Mail"
+                        type="email"
+                    ></v-text-field>
 
-          <v-text-field
-            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="show ? 'text' : 'password'"
-            @click:append="show = !show"
-            color="#0044b2"
-            label="Passwort wiederholen"
-            v-model="passwordAgain"
-            class="my-2"
-          ></v-text-field>
+                    <v-text-field
+                        v-model="password"
+                        :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show ? 'text' : 'password'"
+                        class="my-2"
+                        color="#0044b2"
+                        label="Passwort"
+                        @click:append="show = !show"
+                    ></v-text-field>
 
-          <div style="margin-top: 93px"></div>
+                    <v-text-field
+                        v-model="passwordAgain"
+                        :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                        :type="show ? 'text' : 'password'"
+                        class="my-2"
+                        color="#0044b2"
+                        label="Passwort wiederholen"
+                        @click:append="show = !show"
+                    ></v-text-field>
 
-          <v-btn
-            @click="register"
-            block
-            color="#0044b2"
-            depressed
-            style="color: #eeeeee"
-            >Registrieren
-          </v-btn>
+                    <div style="margin-top: 93px"></div>
 
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-snackbar :timeout="2000" color="error" v-model="registerError">
-      Ein Feld ist leer. Bitte überprüfen.
-    </v-snackbar>
-    <v-snackbar :timeout="2000" color="error" v-model="passwordNotEqual">
-      Die Passwörter sind nicht ident. Bitte überprüfen.
-    </v-snackbar>
-  </v-container>
+                    <v-btn
+                        block
+                        color="#0044b2"
+                        depressed
+                        style="color: #eeeeee"
+                        @click="register"
+                    >Registrieren
+                    </v-btn>
+
+                </v-card>
+            </v-col>
+        </v-row>
+        <v-snackbar v-model="registerError" :timeout="2000" color="error">
+            Ein Feld ist leer. Bitte überprüfen.
+        </v-snackbar>
+        <v-snackbar v-model="passwordNotEqual" :timeout="2000" color="error">
+            Die Passwörter sind nicht ident. Bitte überprüfen.
+        </v-snackbar>
+        <v-snackbar v-model="firebaseError" :timeout="2000" color="error">
+            {{firebaseErrorMessage }}
+        </v-snackbar>
+    </v-container>
 </template>
 
 <script>
+import api from "@/api";
 export default {
-  name: "Register",
-  data() {
-    return {
-      vorname: "",
-      nachname: "",
-      email: "",
-      password: "",
-      passwordAgain: "",
-      show: false,
-      registerError: false,
-      passwordNotEqual: false
-    };
-  },
-  methods: {
-    register: function() {
-      if (
-        this.password == "" ||
-        this.email == "" ||
-        this.vorname == "" ||
-        this.nachname == "" ||
-        this.passwordAgain == ""
-      ) {
-        this.registerError = true;
-      } else if (this.password != this.passwordAgain) {
-        this.passwordNotEqual = true;
-      } else {
-        this.$router.push("/Login");
-      }
+    name: "Register",
+    data() {
+        return {
+            email: "",
+            password: "",
+            passwordAgain: "",
+            show: false,
+            registerError: false,
+            passwordNotEqual: false,
+            firebaseError: false,
+            firebaseErrorMessage: ""
+        };
+    },
+    methods: {
+        // TODO: Account Registration with password and email
+        register: function () {
+            if (
+                this.email == "" ||
+                this.password == "" ||
+                this.passwordAgain == ""
+            ) {
+                this.registerError = true;
+            } else if (this.password != this.passwordAgain) {
+                this.passwordNotEqual = true;
+            } else {
+
+                api.firebase().auth().createUserWithEmailAndPassword(this.email, this.password)
+                    .then(() => {
+                        this.$router.push("/Login");
+                    })
+                    .catch((error) => {
+                        this.firebaseError = true;
+                        this.firebaseErrorMessage = error;
+                    });
+
+            }
+        }
     }
-  }
 };
 </script>
 
 <style scoped>
 .v-card:not(.v-sheet--tile):not(.v-card--shaped) {
-  border-radius: 0px !important;
+    border-radius: 0px !important;
 }
 
-  .v-label, .v-input {
-    font-size: 14px!important; 
-  }
+.v-label, .v-input {
+    font-size: 14px !important;
+}
 
 </style>
