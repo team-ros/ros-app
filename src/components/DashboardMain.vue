@@ -90,7 +90,7 @@
             <v-card color="#eee" style="padding: 20px!important;">
                 <h3 class="mb-4">OPTIONEN</h3>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined>Herunterladen</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
+                <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined>Verschieben</v-btn>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
             </v-card>
@@ -105,7 +105,9 @@
                 <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterSize">Dateigröße</v-btn>
             </v-card>
         </v-dialog>
-
+      <v-snackbar v-model="uploadError" :timeout="2000" color="error">
+        Die Datei ist zu groß.
+      </v-snackbar>
         <!-- ==== FOOTER  ==== -->
 
         <div class="pa-2" style="background: #0044b2; height: 75px; width: 100%; position: fixed; bottom: 0">
@@ -119,6 +121,7 @@
             </v-row>
         </div>
     </div>
+
 </template>
 <script>
 
@@ -137,7 +140,8 @@ export default {
             search: '',
             response: {},
             currentParentID: null,
-            ParentIDStorage: []
+            ParentIDStorage: [],
+          uploadError: false
         }
     },
     methods: {
@@ -158,14 +162,18 @@ export default {
         // Upload Funktion um Dateien in die Cloud zu laden
         fileUpload() {
             const file = this.$refs.file.files[0];
-            console.log(file)
-            console.log(this.currentParentID)
             const self = this
+
+          if(file.size < 100000000){
             api.object().upload(file, null, this.currentParentID)
                 .then(function () {
-                    self.refreshFolderContent()
+                  self.refreshFolderContent()
                 })
                 .catch(err => console.log(err))
+          } else {
+            this.uploadError = true;
+          }
+
         },
         // testweise API Call für den Ordner erstellen
         async createFolder() {
@@ -192,13 +200,25 @@ export default {
             this.response = response.listing
             console.log(response)
         },
-        openOptions: function (file) {
+
+      async deleteEntry() {
+        const self = this
+           api.object().remove(this.selectedFile.id)
+              .then(function () {
+                self.refreshFolderContent();
+                self.fileDialog = false;
+              })
+              .catch(err => console.log(err))
+
+      },
+
+        openOptions: function (entry) {
             if (this.filterDialog == true) {
                 this.filterDialog = false
                 return
             }
             this.fileDialog = true;
-            this.selectedFile = file
+            this.selectedFile = entry
         },
         openFilter: function () {
             if (this.fileDialog == true) {
