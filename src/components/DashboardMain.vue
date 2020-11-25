@@ -66,18 +66,22 @@
         <!-- ==== BODY  ==== -->
         <v-container class="pa-0" style="margin-bottom: 100px!important; margin-top: 120px">
             <v-row no-gutters>
-                <v-col class="col-12 mt-6">
+                <v-col class="col-12 mt-4 pl-4">
+                    <i v-if="parentIDStorage.length === 0" class="fas fa-arrow-left backarrow"></i>
+                    <i v-else class="fas fa-arrow-left backarrow-blue" @click="goBack"></i>
+                </v-col>
+                <v-col class="col-12 mt-4">
                     <table width="100%">
                         <tr v-for="entry in response" :key="entry.id">
-                            <td v-if="entry.type === 'file'" @click="openOptions(entry)">
-                                <DashboardEntry
-                                    :filename="entry.name"
-                                    :filesize="entry.size"
+                            <td v-if="entry.type === 'file'">
+                                <DashboardEntry @openOptions="openOptions"
+                                                :entry="entry"
                                 ></DashboardEntry>
                             </td>
-                            <td v-else @click="refreshFolderContent(entry.id)">
-                                <DashboardEntry
-                                    :filename="entry.name"></DashboardEntry>
+                            <td v-else>
+                                <DashboardEntry @openOptions="openOptions" @openFolder="refreshFolderContent"
+                                                :entry="entry"
+                                ></DashboardEntry>
                             </td>
                         </tr>
                     </table>
@@ -105,9 +109,9 @@
                 <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterSize">Dateigröße</v-btn>
             </v-card>
         </v-dialog>
-      <v-snackbar v-model="uploadError" :timeout="2000" color="error">
-        Die Datei ist zu groß.
-      </v-snackbar>
+        <v-snackbar v-model="uploadError" :timeout="2000" color="error">
+            Die Datei ist zu groß.
+        </v-snackbar>
         <!-- ==== FOOTER  ==== -->
 
         <div class="pa-2" style="background: #0044b2; height: 75px; width: 100%; position: fixed; bottom: 0">
@@ -128,6 +132,7 @@
 import _ from 'lodash';
 import DashboardEntry from "@/components/DashboardEntry";
 import api from "@/api";
+
 export default {
     name: "DashboardMain",
     data() {
@@ -140,8 +145,8 @@ export default {
             search: '',
             response: {},
             currentParentID: null,
-            ParentIDStorage: [],
-          uploadError: false
+            parentIDStorage: [],
+            uploadError: false
         }
     },
     methods: {
@@ -164,35 +169,40 @@ export default {
             const file = this.$refs.file.files[0];
             const self = this
 
-          if(file.size < 100000000){
-            api.object().upload(file, null, this.currentParentID)
-                .then(function () {
-                  self.refreshFolderContent()
-                })
-                .catch(err => console.log(err))
-          } else {
-            this.uploadError = true;
-          }
+            if (file.size < 100000000) {
+                api.object().upload(file, null, this.currentParentID)
+                    .then(function () {
+                        self.refreshFolderContent()
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                this.uploadError = true;
+            }
 
         },
         // testweise API Call für den Ordner erstellen
         async createFolder() {
 
-            let name = window.prompt("Bitte geben Sie einen Ordnernamen an:","Neuer Ordner");
+            let name = window.prompt("Bitte geben Sie einen Ordnernamen an:", "Neuer Ordner");
 
-            if(name){
-            try {
-                await api.object().createDir(name, this.currentParentID)
-                this.refreshFolderContent()
-            } catch (err) {
-                console.log(err)
-            }
+            if (name) {
+                try {
+                    await api.object().createDir(name, this.currentParentID)
+                    this.refreshFolderContent()
+                } catch (err) {
+                    console.log(err)
+                }
             }
         },
         // testweise API Call für bestimmten Ordnerinhalt anzeigen
-        async refreshFolderContent(id) {
-            if(id){
+        async refreshFolderContent(id, goBack) {
+            if (id && !goBack) {
+                this.parentIDStorage.push(this.currentParentID)
+            }
+            if (id) {
                 this.currentParentID = id
+            }else{
+                this.currentParentID = null
             }
 
             const response = await api.object().get(this.currentParentID)
@@ -201,24 +211,30 @@ export default {
             console.log(response)
         },
 
-      async deleteEntry() {
-        const self = this
-           api.object().remove(this.selectedFile.id)
-              .then(function () {
-                self.refreshFolderContent();
-                self.fileDialog = false;
-              })
-              .catch(err => console.log(err))
+        async goBack() {
+            this.refreshFolderContent(this.parentIDStorage[this.parentIDStorage.length - 1], true)
+            this.parentIDStorage.splice(this.parentIDStorage.length-1,1)
+        },
 
-      },
+        async deleteEntry() {
+            const self = this
+            api.object().remove(this.selectedFile.id)
+                .then(function () {
+                    self.refreshFolderContent();
+                    self.fileDialog = false;
+                })
+                .catch(err => console.log(err))
 
-        openOptions: function (entry) {
+        },
+
+        openOptions: function (value) {
+            console.log(value)
             if (this.filterDialog == true) {
                 this.filterDialog = false
                 return
             }
             this.fileDialog = true;
-            this.selectedFile = entry
+            this.selectedFile = value
         },
         openFilter: function () {
             if (this.fileDialog == true) {
@@ -252,20 +268,20 @@ export default {
             this.filterDialog = false;
         },
 
-        debounceElasticSearch: _.debounce(function(){
-                if(this.search) {
-                    this.elasticSearch()
-                }else{
-                    this.refreshFolderContent()
-                }
-        },500),
+        debounceElasticSearch: _.debounce(function () {
+            if (this.search) {
+                this.elasticSearch()
+            } else {
+                this.refreshFolderContent()
+            }
+        }, 500),
 
         async elasticSearch() {
             try {
                 const response = await api.object().search(this.search);
                 this.response = response.search
                 console.log("JETZT")
-            } catch (err){
+            } catch (err) {
                 console.log(err)
             }
         }
@@ -277,8 +293,8 @@ export default {
 
     watch: {
 
-        search: function (){
-                this.debounceElasticSearch()
+        search: function () {
+            this.debounceElasticSearch()
         }
 
     },
