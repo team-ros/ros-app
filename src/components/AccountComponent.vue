@@ -15,12 +15,7 @@
                     <v-text-field
                         color="#0044b2"
                         readonly
-                        v-model="user.vorname"
-                    ></v-text-field>
-                    <v-text-field
-                        color="#0044b2"
-                        readonly
-                        v-model="user.nachname"
+                        v-model="user.displayName"
                     ></v-text-field>
                     <v-text-field
                         color="#0044b2"
@@ -34,26 +29,50 @@
                         label="E-Mail"
                         v-model="email"
                     ></v-text-field>
-                    <v-btn block color="#0044b2" depressed style="color: #eeeeee"
+                    <v-btn @click="sendMail" block color="#0044b2" depressed style="color: #eeeeee"
                     >Zurücksetzen
                     </v-btn>
                 </div>
             </v-col>
         </div>
+        <v-snackbar v-model="sent" :timeout="2000" color="success">
+            Email wurde versendet!
+        </v-snackbar>
+        <v-snackbar v-model="emailError" :timeout="2000" color="error">
+            {{ errorMessage }}
+        </v-snackbar>
     </v-container>
 </template>
 
 <script>
+import api from "@/api"
+
 export default {
     name: "Account",
     data() {
         return {
-            user: {}
+            user: {},
+            email: "",
+            sent: false,
+            emailError: false,
+            errorMessage: ""
         };
     },
 
+    methods: {
+        sendMail() {
+            const self = this;
+            api.firebase().auth().sendPasswordResetEmail(this.email).then(function () {
+                self.sent = true
+            }).catch(function (error) {
+                self.errorMessage = error
+                self.emailError = true
+            });
+        }
+    },
+
     mounted() {
-        this.user = this.$cookies.get("user")
+        this.user = api.firebase().auth().currentUser
     }
 
 };

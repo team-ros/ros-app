@@ -40,7 +40,9 @@
         <v-overlay :value="menuDialog" color="#eee" opacity="1" style=" color:#000;" z-index="300">
             <v-card class="pa-12" color="#eee" flat height="100vh" light width="100vw">
                 <i class="fas fa-arrow-left fa-lg mt-6" @click="menuDialog = false"></i>
-                <h2 class="mb-4 mt-6 headingsize">Projektwebsite</h2>
+                <h2 class="mb-4 mt-6 headingsize">Ihr Account</h2>
+                <router-link class="blackLink normaltextsize" to="/account"><p>ROS Account bearbeiten</p></router-link>
+                <h2 class="mb-4 mt-12 headingsize">Projektwebsite</h2>
                 <a href=""><p class="blackLink normaltextsize">ROS Cloud</p></a>
                 <h2 class="mt-12 mb-4 headingsize">Social Media</h2>
                 <a class="blackLink" href="https://www.instagram.com/ros_cloud/"><i
@@ -79,7 +81,7 @@
                                 ></DashboardEntry>
                             </td>
                             <td v-else>
-                                <DashboardEntry @openOptions="openOptions" @openFolder="refreshFolderContent"
+                                <DashboardEntry @openOptions="openOptions" @openFolder="showFolderContent"
                                                 :entry="entry"
                                 ></DashboardEntry>
                             </td>
@@ -96,7 +98,7 @@
                 <v-btn block class="my-4" color="#0044b2" depressed outlined>Herunterladen</v-btn>
                 <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined>Verschieben</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
+                <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
             </v-card>
         </v-dialog>
 
@@ -111,6 +113,9 @@
         </v-dialog>
         <v-snackbar v-model="uploadError" :timeout="2000" color="error">
             Die Datei ist zu groß.
+        </v-snackbar>
+        <v-snackbar v-model="error" :timeout="3210" color="error">
+            {{errorMessage}}
         </v-snackbar>
         <!-- ==== FOOTER  ==== -->
 
@@ -146,7 +151,9 @@ export default {
             response: {},
             currentParentID: null,
             parentIDStorage: [],
-            uploadError: false
+            uploadError: false,
+            error: false,
+            errorMessage: ""
         }
     },
     methods: {
@@ -171,8 +178,12 @@ export default {
 
             if (file.size < 100000000) {
                 api.object().upload(file, null, this.currentParentID)
-                    .then(function () {
-                        self.refreshFolderContent()
+                    .then(function (response) {
+                        if(response.status === false){
+                            self.error = true
+                            self.errorMessage = response.message
+                        }
+                        self.showFolderContent(self.currentParentID)
                     })
                     .catch(err => console.log(err))
             } else {
@@ -182,53 +193,80 @@ export default {
         },
         // testweise API Call für den Ordner erstellen
         async createFolder() {
-
+            let self = this
             let name = window.prompt("Bitte geben Sie einen Ordnernamen an:", "Neuer Ordner");
 
             if (name) {
-                try {
-                    await api.object().createDir(name, this.currentParentID)
-                    this.refreshFolderContent()
-                } catch (err) {
-                    console.log(err)
-                }
+                api.object().createDir(name, this.currentParentID)
+                    .then(function (response) {
+                        if(response.status === false){
+                            self.error = true
+                            self.errorMessage = response.message
+                        }
+                        self.showFolderContent(self.currentParentID)
+                    })
+                    .catch(err => console.log(err))
+
             }
         },
         // testweise API Call für bestimmten Ordnerinhalt anzeigen
-        async refreshFolderContent(id, goBack) {
+        async showFolderContent(id, goBack) {
+
             if (id && !goBack) {
                 this.parentIDStorage.push(this.currentParentID)
             }
+
             if (id) {
                 this.currentParentID = id
-            }else{
-                this.currentParentID = null
             }
 
-            const response = await api.object().get(this.currentParentID)
+            console.log(this.currentParentID)
+            let response
+            if(!id){
+                response = await api.object().get()
+                console.log("NEIN")
+            }else {
+                response = await api.object().get(this.currentParentID)
+                console.log("JA")
+            }
             this.responseLoaded = true
             this.response = response.listing
             console.log(response)
         },
 
         async goBack() {
-            this.refreshFolderContent(this.parentIDStorage[this.parentIDStorage.length - 1], true)
-            this.parentIDStorage.splice(this.parentIDStorage.length-1,1)
+
+            this.showFolderContent(this.parentIDStorage[this.parentIDStorage.length - 1], true)
+            this.parentIDStorage.pop()
         },
 
         async deleteEntry() {
             const self = this
             api.object().remove(this.selectedFile.id)
                 .then(function () {
-                    self.refreshFolderContent();
+                    self.showFolderContent(self.currentParentID);
                     self.fileDialog = false;
                 })
                 .catch(err => console.log(err))
 
         },
 
+        async renameEntry() {
+            const self = this
+            let name = window.prompt("Bitte geben Sie einen neuen Dateinamen an:", this.selectedFile.name);
+
+            if (name) {
+                api.object().move(this.selectedFile.id, this.currentParentID , name)
+                    .then(function () {
+                        console.log("RENAMED")
+                        self.showFolderContent(self.currentParentID);
+                        self.fileDialog = false;
+                    })
+                    .catch(err => console.log(err))
+            }
+        },
+
         openOptions: function (value) {
-            console.log(value)
             if (this.filterDialog == true) {
                 this.filterDialog = false
                 return
@@ -272,7 +310,7 @@ export default {
             if (this.search) {
                 this.elasticSearch()
             } else {
-                this.refreshFolderContent()
+                this.showFolderContent()
             }
         }, 500),
 
@@ -300,7 +338,7 @@ export default {
     },
 
     mounted() {
-        this.refreshFolderContent()
+        this.showFolderContent()
     }
 };
 </script>

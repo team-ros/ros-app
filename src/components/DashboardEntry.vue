@@ -64,40 +64,50 @@ export default {
         }
     },
 
-    mounted() {
+    methods: {
+        getFileTypeAndIcon() {
+            const re = /(?:\.([^.]+))?$/;
+            this.fileEnding = re.exec(this.entry.name)[1];
 
-        const re = /(?:\.([^.]+))?$/;
-        this.fileEnding = re.exec(this.entry.name)[1];
+            console.log(this.fileEnding)
 
 
-        if (this.fileEnding === "pdf") {
-            this.icon = "<i class=\"far blueAccent fa-file-pdf fa-lg\"></i>"
-        } else if (this.fileEnding === "doc" || this.fileEnding === "docx" || this.fileEnding === "dot" || this.fileEnding === "dotx" || this.fileEnding === "docm" || this.fileEnding === "dotm" || this.fileEnding === "odt") {
-            this.icon = "<i class=\"far blueAccent fa-file-word fa-lg\"></i>"
-        } else if (this.fileEnding === "xlsx" || this.fileEnding === "xlsm" || this.fileEnding === "xlsb" || this.fileEnding === "xlam" || this.fileEnding === "xltx" || this.fileEnding === "xlk" || this.fileEnding === "xll" || this.fileEnding === "xls") {
-            this.icon = "<i class=\"far blueAccent fa-file-excel fa-lg\"></i>"
-        } else if (this.fileEnding === "txt" || this.fileEnding === "rtf") {
-            this.icon = "<i class=\"far blueAccent fa-file-alt fa-lg\"></i>"
-        } else if (this.fileEnding === "jpg" || this.fileEnding === "jpeg" || this.fileEnding === "gif") {
-            this.icon = "<i class=\"far blueAccent fa-image fa-lg\"></i>"
-        } else if (this.fileEnding === "ppt" || this.fileEnding === "pptx") {
-            this.icon = "<i class=\"far blueAccent fa-file-powerpoint fa-lg\"></i>"
-        } else if (this.fileEnding === "zip" || this.fileEnding === "rar") {
-            this.icon = "<i class=\"far blueAccent fa-file-archive fa-lg\"></i>"
-        } else if (this.fileEnding === "htm" || this.fileEnding === "html" || this.fileEnding === "mht" || this.fileEnding === "mhtml") {
-            this.icon = "<i class=\"far blueAccent fa-file-code fa-lg\"></i>"
-        } else if (this.fileEnding === "wav" || this.fileEnding === "mp3") {
-            this.icon = "<i class=\"far blueAccent fa-file-audio fa-lg\"></i>"
-        } else if (this.fileEnding === "mpg" || this.fileEnding === "mpeg" || this.fileEnding === "avi" || this.fileEnding === "wmv" || this.fileEnding === "mov" || this.fileEnding === "ram") {
-            this.icon = "<i class=\"far blueAccent fa-file-video fa-lg\"></i>"
-        } else if (this.fileEnding === "csv") {
-            this.icon = "<i class=\"fas blueAccent fa-file-csv fa-lg\"></i>"
-        } else if (this.entry.type === 'directory') {
-            this.icon = "<i class=\"far blueAccent fa-folder-open fa-lg\"></i>"
-        } else {
-            this.icon = "<i class=\"far blueAccent fa-file fa-lg\"></i>"
+            if (this.fileEnding === "pdf") {
+                this.icon = "<i class=\"far blueAccent fa-file-pdf fa-lg\"></i>"
+            } else if (this.fileEnding === "doc" || this.fileEnding === "docx" || this.fileEnding === "dot" || this.fileEnding === "dotx" || this.fileEnding === "docm" || this.fileEnding === "dotm" || this.fileEnding === "odt") {
+                this.icon = "<i class=\"far blueAccent fa-file-word fa-lg\"></i>"
+            } else if (this.fileEnding === "xlsx" || this.fileEnding === "xlsm" || this.fileEnding === "xlsb" || this.fileEnding === "xlam" || this.fileEnding === "xltx" || this.fileEnding === "xlk" || this.fileEnding === "xll" || this.fileEnding === "xls") {
+                this.icon = "<i class=\"far blueAccent fa-file-excel fa-lg\"></i>"
+            } else if (this.fileEnding === "txt" || this.fileEnding === "rtf") {
+                this.icon = "<i class=\"far blueAccent fa-file-alt fa-lg\"></i>"
+            } else if (this.fileEnding === "jpg" || this.fileEnding === "jpeg" || this.fileEnding === "gif" || this.fileEnding === "png") {
+                this.icon = "<i class=\"far blueAccent fa-image fa-lg\"></i>"
+            } else if (this.fileEnding === "ppt" || this.fileEnding === "pptx") {
+                this.icon = "<i class=\"far blueAccent fa-file-powerpoint fa-lg\"></i>"
+            } else if (this.fileEnding === "zip" || this.fileEnding === "rar") {
+                this.icon = "<i class=\"far blueAccent fa-file-archive fa-lg\"></i>"
+            } else if (this.fileEnding === "htm" || this.fileEnding === "html" || this.fileEnding === "mht" || this.fileEnding === "mhtml") {
+                this.icon = "<i class=\"far blueAccent fa-file-code fa-lg\"></i>"
+            } else if (this.fileEnding === "wav" || this.fileEnding === "mp3") {
+                this.icon = "<i class=\"far blueAccent fa-file-audio fa-lg\"></i>"
+            } else if (this.fileEnding === "mpg" || this.fileEnding === "mpeg" || this.fileEnding === "avi" || this.fileEnding === "wmv" || this.fileEnding === "mov" || this.fileEnding === "ram") {
+                this.icon = "<i class=\"far blueAccent fa-file-video fa-lg\"></i>"
+            } else if (this.fileEnding === "csv") {
+                this.icon = "<i class=\"fas blueAccent fa-file-csv fa-lg\"></i>"
+            } else if (this.entry.type === 'directory') {
+                this.icon = "<i class=\"far blueAccent fa-folder-open fa-lg\"></i>"
+            } else {
+                this.icon = "<i class=\"far blueAccent fa-file fa-lg\"></i>"
+            }
         }
+    },
 
+
+    updated() {
+        this.getFileTypeAndIcon();
+    },
+    mounted() {
+        this.getFileTypeAndIcon();
     }
 };
 </script>

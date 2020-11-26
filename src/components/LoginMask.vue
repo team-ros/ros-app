@@ -7,7 +7,7 @@
 
             <v-col class="col-12 mt-6">
                 <v-card color="#eee" flat class="pa-4">
-                    <h1 class="mb-8 headingsize text-center">
+                    <h1 class="mb-8 heading text-center">
                         Willkommen!
                     </h1>
 
@@ -40,12 +40,12 @@
                         block
                         color="#0044b2"
                         depressed
-                        class="normaltextsize color_eee"
+                        class="color_eee button"
                     >Login
                     </v-btn>
 
                     <v-btn
-                        class="my-4 normaltextsize color_eee"
+                        class="my-4 color_eee button"
                         @click="loginWithGoogle"
                         block
                         color="grey"
