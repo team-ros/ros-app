@@ -66,22 +66,32 @@
         </v-overlay>
 
         <!-- ==== BODY  ==== -->
-        <v-container class="pa-0" style="margin-bottom: 100px!important; margin-top: 120px">
+        <v-container class="pa-0 " style="margin-bottom: 100px!important; margin-top: 105px">
             <v-row no-gutters>
-                <v-col class="col-12 mt-4 pl-4">
-                    <i v-if="parentIDStorage.length === 0" class="fas fa-arrow-left backarrow"></i>
-                    <i v-else class="fas fa-arrow-left backarrow-blue" @click="goBack"></i>
+                <v-col style="height: 62.5px"  class="col-2">
+                    <v-btn v-if="parentIDStorage.length !== 0" style="float: right" small  class="my-4" color="#0044b2" depressed outlined>
+                        <i  class="fas fa-arrow-left backarrow-blue" @click="goBack"></i>
+                    </v-btn>
+                    <v-btn color="#bdbdbd" v-else style="float: right" small class="my-4" depressed outlined>
+                        <i  class="fas fa-arrow-left"></i>
+                    </v-btn>
                 </v-col>
-                <v-col class="col-12 mt-4">
+                <v-col class="col-10 pr-2">
+                    <v-btn @click="insertFile" v-if="moveFile" style="float: right" small  class="my-4" color="#0044b2" depressed outlined>
+                        Hierher verschieben
+                    </v-btn>
+
+                </v-col>
+                <v-col class="col-12">
                     <table width="100%">
                         <tr v-for="entry in response" :key="entry.id">
                             <td v-if="entry.type === 'file'">
-                                <DashboardEntry @openOptions="openOptions"
+                                <DashboardEntry @openOptions="openFileOptions"
                                                 :entry="entry"
                                 ></DashboardEntry>
                             </td>
                             <td v-else>
-                                <DashboardEntry @openOptions="openOptions" @openFolder="showFolderContent"
+                                <DashboardEntry @openOptions="openFolderOptions" @openFolder="showFolderContent"
                                                 :entry="entry"
                                 ></DashboardEntry>
                             </td>
@@ -95,9 +105,18 @@
         <v-dialog v-model="fileDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card color="#eee" style="padding: 20px!important;">
                 <h3 class="mb-4">OPTIONEN</h3>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined>Herunterladen</v-btn>
+                <v-btn @click="downloadEntry" block class="my-4" color="#0044b2" depressed outlined>Herunterladen
+                </v-btn>
                 <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined>Verschieben</v-btn>
+                <v-btn @click="moveEntry" block class="my-4" color="#0044b2" depressed outlined>Verschieben</v-btn>
+                <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
+            </v-card>
+        </v-dialog>
+
+        <v-dialog v-model="folderDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+            <v-card color="#eee" style="padding: 20px!important;">
+                <h3 class="mb-4">OPTIONEN</h3>
+                <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
                 <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
             </v-card>
         </v-dialog>
@@ -115,7 +134,7 @@
             Die Datei ist zu groß.
         </v-snackbar>
         <v-snackbar v-model="error" :timeout="3210 " color="error">
-            {{errorMessage}}
+            {{ errorMessage }}
         </v-snackbar>
         <!-- ==== FOOTER  ==== -->
 
@@ -144,6 +163,7 @@ export default {
         return {
             responseLoaded: false,
             fileDialog: false,
+            folderDialog: false,
             filterDialog: false,
             menuDialog: false,
             selectedFile: {},
@@ -153,7 +173,9 @@ export default {
             parentIDStorage: [],
             uploadError: false,
             error: false,
-            errorMessage: ""
+            errorMessage: "",
+            moveFile: null,
+
         }
     },
     methods: {
@@ -179,9 +201,9 @@ export default {
             if (file.size < 100000000) {
                 api.object().upload(file, null, this.currentParentID)
                     .then(function (response) {
-                        if(response.status === false){
+                        if (response.status === false) {
                             self.error = true
-                            self.errorMessage = response.message
+                            self.errorMessage = "Die Datei konnte nicht hochgeladen werden."
                         }
                         self.showFolderContent(self.currentParentID)
                     })
@@ -199,9 +221,9 @@ export default {
             if (name) {
                 api.object().createDir(name, this.currentParentID)
                     .then(function (response) {
-                        if(response.status === false){
+                        if (response.status === false) {
                             self.error = true
-                            self.errorMessage = response.message
+                            self.errorMessage = "Diesen Ordner gibt es schon."
                         }
                         self.showFolderContent(self.currentParentID)
                     })
@@ -222,10 +244,10 @@ export default {
 
             console.log(this.currentParentID)
             let response
-            if(!id){
+            if (!id) {
                 response = await api.object().get()
                 console.log("NEIN")
-            }else {
+            } else {
                 response = await api.object().get(this.currentParentID)
                 console.log("JA")
             }
@@ -256,7 +278,7 @@ export default {
             let name = window.prompt("Bitte geben Sie einen neuen Dateinamen an:", this.selectedFile.name);
 
             if (name) {
-                api.object().move(this.selectedFile.id, this.currentParentID , name)
+                api.object().move(this.selectedFile.id, this.currentParentID, name)
                     .then(function () {
                         console.log("RENAMED")
                         self.showFolderContent(self.currentParentID);
@@ -266,12 +288,62 @@ export default {
             }
         },
 
-        openOptions: function (value) {
+        async downloadEntry() {
+            const self = this
+
+            api.object().get(this.selectedFile.id)
+                .then(function (object_url_response) {
+
+                    api.object().download(object_url_response.url)
+                        .then(function (blob_response) {
+                            self.fileDialog = false;
+
+                            let dl = document.createElement("a")
+                            dl.style.display = "none";
+                            dl.setAttribute("href", blob_response);
+                            dl.setAttribute("download", self.selectedFile.name);
+                            dl.click()
+                        })
+                        .catch (function (err) {
+                            console.log(err)
+                        })
+                })
+
+        },
+        moveEntry: function () {
+            this.moveFile = this.selectedFile
+            this.fileDialog = false;
+        },
+        async insertFile() {
+            let self = this;
+            api.object().move(this.moveFile.id, this.currentParentID, this.moveFile.name)
+            .then (function (response) {
+                console.log(response)
+                self.showFolderContent (self.currentParentID)
+                self.moveFile = null;
+            })
+
+                .catch (function (err) {
+                    console.log(err)
+                })
+
+
+        },
+        openFileOptions: function (value) {
             if (this.filterDialog == true) {
                 this.filterDialog = false
                 return
             }
             this.fileDialog = true;
+            this.selectedFile = value
+        },
+        openFolderOptions: function (value) {
+            if (this.filterDialog == true) {
+                this.filterDialog = false
+                return
+            }
+
+            this.folderDialog = true;
             this.selectedFile = value
         },
         openFilter: function () {

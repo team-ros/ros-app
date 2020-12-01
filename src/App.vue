@@ -5,7 +5,7 @@
 </template>
 
 <script>
-
+import api from "./api";
 export default {
     data() {
         return {
@@ -16,13 +16,12 @@ export default {
 
     created() {
 
-        // Falls beim Öffnen der Website auf EGAL WELCHER Seite (AUSSER LOGIN!!) kein Cookie ist -> auf Login leiten.
-        if (this.$route.path != "/login") {
-            if (!this.$cookies.isKey("user")) {
-                this.$router.push('/login')
-            }
-        }
-
+        api.util().persistSession({
+            loginUrl: "/login",
+            registerUrl: "/#/register",
+            dashboardUrl: "/#/",
+            reloads: 3
+        })
 
     },
 

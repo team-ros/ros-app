@@ -112,19 +112,17 @@ export default {
 
             api.firebase().auth().useDeviceLanguage()
             api.firebase().auth().signInWithPopup(GoogleProvider)
+                .then(function () {
+                    api.firebase().auth().onAuthStateChanged(function (user) {
+                        if (user) {
+                            self.$router.push("/");
+                        }
+                    });
+                })
                 .catch(error => {
                     // Wenn ein Fehler beim Anmelden auftritt:
                     console.log(error)
-                }).then(function () {
-
-                //Wenn kein Fehler auftritt gehts hier weiter
-
-                api.firebase().auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        self.$router.push("/");
-                    }
-                });
-            });
+                })
         },
         login: function () {
             api.firebase().auth().signInWithEmailAndPassword(this.email, this.password)

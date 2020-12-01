@@ -19,22 +19,44 @@
                         label="E-Mail"
                         v-model="email"
                     ></v-text-field>
-                    <v-btn block color="#0044b2" depressed style="color: #eeeeee" class="normaltextsize"
+                    <v-btn @click="sendMail" block color="#0044b2" depressed style="color: #eeeeee" class="normaltextsize"
                     >Zurücksetzen
                     </v-btn>
                 </div>
             </v-col>
         </v-row>
+        <v-snackbar v-model="sent" :timeout="2000" color="success">
+            Email wurde versendet!
+        </v-snackbar>
+        <v-snackbar v-model="emailError" :timeout="2000" color="error">
+            {{ errorMessage }}
+        </v-snackbar>
     </v-container>
 </template>
 
 <script>
+import api from "@/api";
+
 export default {
     name: "PasswordRecovery",
     data() {
         return {
-            email: ""
+            email: "",
+            sent: false,
+            emailError: false,
+            errorMessage: ""
         };
+    },
+    methods: {
+        sendMail() {
+            const self = this;
+            api.firebase().auth().sendPasswordResetEmail(this.email).then(function () {
+                self.sent = true
+            }).catch(function (error) {
+                self.errorMessage = error
+                self.emailError = true
+            });
+        }
     }
 };
 </script>
