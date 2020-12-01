@@ -114,7 +114,7 @@
         <v-snackbar v-model="uploadError" :timeout="2000" color="error">
             Die Datei ist zu groß.
         </v-snackbar>
-        <v-snackbar v-model="error" :timeout="3210" color="error">
+        <v-snackbar v-model="error" :timeout="3210 " color="error">
             {{errorMessage}}
         </v-snackbar>
         <!-- ==== FOOTER  ==== -->

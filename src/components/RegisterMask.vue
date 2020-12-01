@@ -42,8 +42,6 @@
                         @click:append="show = !show"
                     ></v-text-field>
 
-                    <div style="margin-top: 93px"></div>
-
                     <v-btn
                         block
                         color="#0044b2"
