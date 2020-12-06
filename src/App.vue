@@ -18,8 +18,8 @@ export default {
 
         api.util().persistSession({
             loginUrl: "/login",
-            registerUrl: "/#/register",
-            dashboardUrl: "/#/",
+            registerUrl: "/register",
+            dashboardUrl: "/",
             reloads: 3
         })
 
