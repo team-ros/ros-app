@@ -43,7 +43,7 @@
                 <h2 class="mb-4 mt-6 headingsize">Ihr Account</h2>
                 <router-link class="blackLink normaltextsize" to="/account"><p>ROS Account bearbeiten</p></router-link>
                 <h2 class="mb-4 mt-12 headingsize">Projektwebsite</h2>
-                <a href=""><p class="blackLink normaltextsize">ROS Cloud</p></a>
+                <a href="https://project.ros-cloud.at/"><p class="blackLink normaltextsize">ROS Cloud</p></a>
                 <h2 class="mt-12 mb-4 headingsize">Social Media</h2>
                 <a class="blackLink" href="https://www.instagram.com/ros_cloud/"><i
                     class="fab fa-instagram"
@@ -389,7 +389,7 @@ export default {
         async elasticSearch() {
             try {
                 const response = await api.object().search(this.search);
-                this.response = response.search
+                this.response = response.listing
                 console.log("JETZT")
             } catch (err) {
                 console.log(err)

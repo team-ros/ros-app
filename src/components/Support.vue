@@ -13,8 +13,8 @@
             <div class="mt-12 normaltextsize">
                 Wenn Sie Hilfe brauchen wenden Sie sich bitte an den Support!
             </div>
-            <v-btn class="mt-12 rosblue" block depressed style="color: #eeeeee"
-            >E-MAIL AN DEN SUPPORT
+            <v-btn class="mt-12 rosblue" block depressed
+            > <a style="color: #eeeeee" href="mailto:support@ros-cloud.at">E-MAIL AN DEN SUPPORT </a>
             </v-btn>
 
         </v-col>
