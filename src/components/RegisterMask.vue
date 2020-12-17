@@ -83,7 +83,6 @@ export default {
         };
     },
     methods: {
-        // TODO: Account Registration with password and email
         register: function () {
             if (
                 this.email == "" ||

@@ -1,5 +1,6 @@
 <template>
     <v-app>
+        <!-- hier ist die Ansicht des Routers, die anzeigt in welcher Route man sich befindet -->
         <router-view></router-view>
     </v-app>
 </template>
