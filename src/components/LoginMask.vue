@@ -111,7 +111,7 @@ export default {
             GoogleProvider.addScope('email')
 
             api.firebase().auth().useDeviceLanguage()
-            api.firebase().auth().signInWithPopup(GoogleProvider)
+            api.firebase().auth().signInWithRedirect(GoogleProvider)
                 .then(function () {
                     api.firebase().auth().onAuthStateChanged(function (user) {
                         if (user) {
