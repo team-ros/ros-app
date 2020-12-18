@@ -9,10 +9,6 @@
 
     export default {
         data() {
-            return {
-
-            }
-
         },
         components: {
             LoginMask
