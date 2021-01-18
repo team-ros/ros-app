@@ -3,22 +3,25 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router'
 import '@mdi/font/css/materialdesignicons.css'
-import Vuecookies from 'vue-cookies'
-
 import vueFilterPrettyBytes from 'vue-filter-pretty-bytes'
-import VueSession from 'vue-session'
+import VueI18n from 'vue-i18n'
+import messages from './lang'
 
-Vue.use(VueSession)
+Vue.use(VueI18n)
 Vue.use(vueFilterPrettyBytes)
 
+export const i18n = new VueI18n({
+  //locale: navigator.language,
+  locale: 'de',
+  messages
+});
 
 Vue.config.productionTip = false
-
-Vue.use(Vuecookies)
 
 
 new Vue({
   vuetify,
+  i18n,
   router,
   render: h => h(App)
 }).$mount('#app')

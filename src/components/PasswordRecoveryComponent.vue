@@ -7,7 +7,7 @@
         </router-link>
         <v-row>
             <v-col class="col-12 mt-6">
-                <h1 class="mb-10 headingsize">Passwort zurücksetzen</h1>
+                <h1 class="mb-10 headingsize">{{ $t('site.password_recovery.title') }}</h1>
                 <p class="mb-1 normaltextsize" style="margin-top: -35px">
                     Hier können Sie Ihr Passwort zurücksetzen.
                 </p>

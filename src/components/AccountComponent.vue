@@ -11,10 +11,11 @@
                 <p class="mb-1 normaltextsize" style="margin-top: -35px">
                     Hier sind Ihre Accountinformationen zu sehen.
                 </p>
-                <div class="mt-12">
+                <div class="mt-6">
                     <v-text-field
                         color="#0044b2"
                         readonly
+                        v-if="user.displayName"
                         v-model="user.displayName"
                     ></v-text-field>
                     <v-text-field
@@ -22,7 +23,7 @@
                         readonly
                         v-model="user.email"
                     ></v-text-field>
-                    <h1 style="font-size: large; margin-top: 30px;" class="mb-7">Passwort zurücksetzen?</h1>
+                    <h1 style="font-size: large; margin-top: 30px;" class="mb-6">Passwort zurücksetzen?</h1>
                     <v-text-field
                         color="#0044b2"
                         type="email"

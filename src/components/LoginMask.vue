@@ -8,19 +8,19 @@
             <v-col class="col-12 mt-6">
                 <v-card color="#eee" flat class="pa-4">
                     <h1 class="mb-8 heading text-center">
-                        Willkommen!
+                      {{ $t('site.login.title') }}
                     </h1>
 
                     <v-text-field
                         color="#0044b2"
                         type="email"
-                        label="E-Mail"
+                        :label="$t('site.login.email')"
                         v-model="email"
                     ></v-text-field>
 
                     <v-text-field
                         color="#0044b2"
-                        label="Passwort"
+                        :label="$t('site.login.password')"
                         v-model="password"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show ? 'text' : 'password'"
@@ -29,7 +29,7 @@
 
                     <router-link to="/passwordrecovery">
                         <p class="smalltextsize linkinblack text-right">
-                            Passwort vergessen?
+                          {{ $t('site.login.password_recovery') }}
                         </p>
                     </router-link>
 
@@ -41,7 +41,7 @@
                         color="#0044b2"
                         depressed
                         class="color_eee button"
-                    >Login
+                    >{{ $t('site.login.login') }}
                     </v-btn>
 
                     <v-btn
@@ -51,7 +51,7 @@
                         color="grey"
                         depressed
 
-                    >Login with Google
+                    >{{ $t('site.login.login_with_google') }}
                     </v-btn>
 
                     <div>
@@ -59,20 +59,20 @@
 
                             <router-link class="smalltextsize linkinblack" to="/register">
                                 <p class="text-right">
-                                    Noch keinen Account?
+                                  {{ $t('site.login.register') }}
                                 </p>
                             </router-link>
                         </div>
 
                         <div class="mt-12 text-center">
                             <router-link class="smalltextsize linkinblack" to="/impressum">
-                                <span> Impressum </span>
+                                <span> {{ $t('site.login.imprint') }} </span>
                             </router-link>
                             <span class="footer">
                 |
               </span>
                             <a href="http://www.google.com" class="smalltextsize linkinblack">
-                                <span> DSGVO </span>
+                                <span> {{ $t('site.login.dsgvo') }} </span>
                             </a>
                         </div>
                     </div>

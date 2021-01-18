@@ -15,30 +15,40 @@
 
 
                     <v-text-field
+                        :error-messages="emailErrors"
                         v-model="email"
                         class="my-2"
                         color="#0044b2"
                         label="E-Mail"
                         type="email"
+                        required
+                        @input="$v.email.$touch()"
+                        @blur="$v.email.$touch()"
                     ></v-text-field>
 
                     <v-text-field
+                        :error-messages="passwordErrors"
                         v-model="password"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show ? 'text' : 'password'"
                         class="my-2"
                         color="#0044b2"
                         label="Passwort"
+                        @input="$v.password.$touch()"
+                        @blur="$v.password.$touch()"
                         @click:append="show = !show"
                     ></v-text-field>
 
                     <v-text-field
+                        :error-messages="passwordAgainErrors"
                         v-model="passwordAgain"
                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="show ? 'text' : 'password'"
                         class="my-2"
                         color="#0044b2"
                         label="Passwort wiederholen"
+                        @input="$v.passwordAgain.$touch()"
+                        @blur="$v.passwordAgain.$touch()"
                         @click:append="show = !show"
                     ></v-text-field>
 
@@ -67,11 +77,31 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+import { required, minLength, email } from 'vuelidate/lib/validators'
 import api from "@/api";
+
+
+
+
 export default {
+
+  mixins: [validationMixin],
     name: "Register",
+  validations: {
+    email: { required, email },
+    password: {
+      required,
+      minLength: minLength(8)
+    },
+    passwordAgain: {
+      required
+    },
+
+  },
     data() {
         return {
+            regexPassword: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
             email: "",
             password: "",
             passwordAgain: "",
@@ -82,6 +112,35 @@ export default {
             firebaseErrorMessage: ""
         };
     },
+
+  computed: {
+    emailErrors () {
+      const errors = []
+      if (!this.$v.email.$dirty) return errors
+      !this.$v.email.email && errors.push('Keine gültige E-Mail-Adresse')
+      !this.$v.email.required && errors.push('Bitte geben Sie eine E-Mail-Adresse ein')
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.password.$dirty) return errors
+      if (!this.regexPassword.test(this.password)){
+        errors.push('Bitte verwenden Sie Klein- und Großbuchstaben, sowie Zahlen und Sonderzeichen')
+      }
+      !this.$v.password.required && errors.push('Bitte geben Sie ein Passwort ein')
+      !this.$v.password.minLength && errors.push('Bitte geben Sie mehr als 8 Zeichen ein')
+      return errors
+    },
+    passwordAgainErrors () {
+      const errors = []
+      if (!this.$v.passwordAgain.$dirty) return errors
+      if (!this.regexPassword.test(this.passwordAgain)){
+        errors.push('Bitte verwenden Sie Klein- und Großbuchstaben, sowie Zahlen und Sonderzeichen')
+      }
+      !this.$v.passwordAgain.required && errors.push('Bitte geben Sie ein Passwort ein')
+      return errors
+    },
+  },
     methods: {
         register: function () {
             if (

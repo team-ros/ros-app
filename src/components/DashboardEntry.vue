@@ -15,7 +15,7 @@
                 <div style="flex: 20%">
                     <span style=" margin-top: 4px!important; float: right;"
                           class="filenamesize">{{
-                            entry.size | prettyBytes
+                        entry.size | prettyBytes
                         }} </span>
                     <div style="clear: both"></div>
                 </div>
@@ -53,7 +53,7 @@ export default {
     data() {
         return {
             icon: "",
-            fileEnding: ""
+
         }
     },
 
@@ -66,33 +66,28 @@ export default {
 
     methods: {
         getFileTypeAndIcon() {
-            const re = /(?:\.([^.]+))?$/;
-            this.fileEnding = re.exec(this.entry.name)[1];
 
-            console.log(this.fileEnding)
-
-
-            if (this.fileEnding === "pdf") {
+            if ( this.entry.fileExtention === "pdf") {
                 this.icon = "<i class=\"far blueAccent fa-file-pdf fa-lg\"></i>"
-            } else if (this.fileEnding === "doc" || this.fileEnding === "docx" || this.fileEnding === "dot" || this.fileEnding === "dotx" || this.fileEnding === "docm" || this.fileEnding === "dotm" || this.fileEnding === "odt") {
+            } else if ( this.entry.fileExtention === "doc" ||  this.entry.fileExtention === "docx" ||  this.entry.fileExtention === "dot" ||  this.entry.fileExtention === "dotx" ||  this.entry.fileExtention === "docm" ||  this.entry.fileExtention === "dotm" ||  this.entry.fileExtention === "odt") {
                 this.icon = "<i class=\"far blueAccent fa-file-word fa-lg\"></i>"
-            } else if (this.fileEnding === "xlsx" || this.fileEnding === "xlsm" || this.fileEnding === "xlsb" || this.fileEnding === "xlam" || this.fileEnding === "xltx" || this.fileEnding === "xlk" || this.fileEnding === "xll" || this.fileEnding === "xls") {
+            } else if ( this.entry.fileExtention === "xlsx" ||  this.entry.fileExtention === "xlsm" ||  this.entry.fileExtention === "xlsb" ||  this.entry.fileExtention === "xlam" ||  this.entry.fileExtention === "xltx" ||  this.entry.fileExtention === "xlk" ||  this.entry.fileExtention === "xll" ||  this.entry.fileExtention === "xls") {
                 this.icon = "<i class=\"far blueAccent fa-file-excel fa-lg\"></i>"
-            } else if (this.fileEnding === "txt" || this.fileEnding === "rtf") {
+            } else if ( this.entry.fileExtention === "txt" ||  this.entry.fileExtention === "rtf") {
                 this.icon = "<i class=\"far blueAccent fa-file-alt fa-lg\"></i>"
-            } else if (this.fileEnding === "jpg" || this.fileEnding === "jpeg" || this.fileEnding === "gif" || this.fileEnding === "png") {
+            } else if ( this.entry.fileExtention === "jpg" ||  this.entry.fileExtention === "jpeg" ||  this.entry.fileExtention === "gif" ||  this.entry.fileExtention === "png") {
                 this.icon = "<i class=\"far blueAccent fa-image fa-lg\"></i>"
-            } else if (this.fileEnding === "ppt" || this.fileEnding === "pptx") {
+            } else if ( this.entry.fileExtention === "ppt" ||  this.entry.fileExtention === "pptx") {
                 this.icon = "<i class=\"far blueAccent fa-file-powerpoint fa-lg\"></i>"
-            } else if (this.fileEnding === "zip" || this.fileEnding === "rar") {
+            } else if ( this.entry.fileExtention === "zip" ||  this.entry.fileExtention === "rar") {
                 this.icon = "<i class=\"far blueAccent fa-file-archive fa-lg\"></i>"
-            } else if (this.fileEnding === "htm" || this.fileEnding === "html" || this.fileEnding === "mht" || this.fileEnding === "mhtml") {
+            } else if ( this.entry.fileExtention === "htm" ||  this.entry.fileExtention === "html" ||  this.entry.fileExtention === "mht" ||  this.entry.fileExtention === "mhtml") {
                 this.icon = "<i class=\"far blueAccent fa-file-code fa-lg\"></i>"
-            } else if (this.fileEnding === "wav" || this.fileEnding === "mp3") {
+            } else if ( this.entry.fileExtention === "wav" ||  this.entry.fileExtention === "mp3") {
                 this.icon = "<i class=\"far blueAccent fa-file-audio fa-lg\"></i>"
-            } else if (this.fileEnding === "mpg" || this.fileEnding === "mpeg" || this.fileEnding === "avi" || this.fileEnding === "wmv" || this.fileEnding === "mov" || this.fileEnding === "ram") {
+            } else if ( this.entry.fileExtention === "mpg" ||  this.entry.fileExtention === "mpeg" ||  this.entry.fileExtention === "avi" ||  this.entry.fileExtention === "wmv" ||  this.entry.fileExtention === "mov" ||  this.entry.fileExtention === "ram") {
                 this.icon = "<i class=\"far blueAccent fa-file-video fa-lg\"></i>"
-            } else if (this.fileEnding === "csv") {
+            } else if ( this.entry.fileExtention === "csv") {
                 this.icon = "<i class=\"fas blueAccent fa-file-csv fa-lg\"></i>"
             } else if (this.entry.type === 'directory') {
                 this.icon = "<i class=\"far blueAccent fa-folder-open fa-lg\"></i>"
