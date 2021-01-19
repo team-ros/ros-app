@@ -9,25 +9,25 @@
             <v-col class="col-12 mt-6">
                 <h1 class="mb-10 headingsize">{{ $t('site.password_recovery.title') }}</h1>
                 <p class="mb-1 normaltextsize" style="margin-top: -35px">
-                    Hier können Sie Ihr Passwort zurücksetzen.
+                  {{ $t('site.password_recovery.description') }}
                 </p>
 
                 <div class="mt-12">
                     <v-text-field
                         color="#0044b2"
                         type="email"
-                        label="E-Mail"
+                        :label="$t('site.password_recovery.email')"
                         v-model="email"
                     ></v-text-field>
                     <v-btn @click="sendMail" block color="#0044b2" depressed style="color: #eeeeee" class="normaltextsize"
-                    >Zurücksetzen
+                    >                  {{ $t('site.password_recovery.recovery_button') }}
+
                     </v-btn>
                 </div>
             </v-col>
         </v-row>
         <v-snackbar v-model="sent" :timeout="2000" color="success">
-            Email wurde versendet!
-        </v-snackbar>
+          {{ $t('site.password_recovery.email_sent') }}        </v-snackbar>
         <v-snackbar v-model="emailError" :timeout="2000" color="error">
             {{ errorMessage }}
         </v-snackbar>

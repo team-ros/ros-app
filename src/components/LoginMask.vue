@@ -41,7 +41,7 @@
                         color="#0044b2"
                         depressed
                         class="color_eee button"
-                    >{{ $t('site.login.login') }}
+                    >Login
                     </v-btn>
 
                     <v-btn
@@ -71,7 +71,7 @@
                             <span class="footer">
                 |
               </span>
-                            <a href="http://www.google.com" class="smalltextsize linkinblack">
+                            <a href="https://www.ros-cloud.at/impressum" class="smalltextsize linkinblack">
                                 <span> {{ $t('site.login.dsgvo') }} </span>
                             </a>
                         </div>

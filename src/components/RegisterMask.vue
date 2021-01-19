@@ -7,10 +7,10 @@
         </router-link>
         <v-row>
             <v-col class="col-12 mt-6">
-                <h1 class="mb-8 headingsize">Registrieren</h1>
+                <h1 class="mb-8 headingsize">                  {{ $t('site.register.title') }}
+                </h1>
                 <p class="mb-1 normaltextsize" style="margin-top: -28px;">
-                    Hier können Sie sich registrieren, wenn
-                    Sie noch keinen Account haben.</p>
+                  {{ $t('site.register.description') }}</p>
                 <v-card class="pa-4" color="#eee" flat>
 
 
@@ -19,7 +19,7 @@
                         v-model="email"
                         class="my-2"
                         color="#0044b2"
-                        label="E-Mail"
+                        :label="$t('site.register.email')"
                         type="email"
                         required
                         @input="$v.email.$touch()"
@@ -33,7 +33,7 @@
                         :type="show ? 'text' : 'password'"
                         class="my-2"
                         color="#0044b2"
-                        label="Passwort"
+                        :label="$t('site.register.password')"
                         @input="$v.password.$touch()"
                         @blur="$v.password.$touch()"
                         @click:append="show = !show"
@@ -46,7 +46,7 @@
                         :type="show ? 'text' : 'password'"
                         class="my-2"
                         color="#0044b2"
-                        label="Passwort wiederholen"
+                        :label="$t('site.register.passwordAgain')"
                         @input="$v.passwordAgain.$touch()"
                         @blur="$v.passwordAgain.$touch()"
                         @click:append="show = !show"
@@ -58,18 +58,16 @@
                         depressed
                         style="color: #eeeeee"
                         @click="register"
-                    >Registrieren
+                    >{{$t('site.register.register_button')}}
                     </v-btn>
 
                 </v-card>
             </v-col>
         </v-row>
         <v-snackbar v-model="registerError" :timeout="2000" color="error">
-            Ein Feld ist leer. Bitte überprüfen.
-        </v-snackbar>
+          {{ $t('site.register.field_empty_error') }}        </v-snackbar>
         <v-snackbar v-model="passwordNotEqual" :timeout="2000" color="error">
-            Die Passwörter sind nicht ident. Bitte überprüfen.
-        </v-snackbar>
+          {{ $t('site.register.passwordSameAs_error') }}        </v-snackbar>
         <v-snackbar v-model="firebaseError" :timeout="2000" color="error">
             {{firebaseErrorMessage }}
         </v-snackbar>
@@ -117,27 +115,27 @@ export default {
     emailErrors () {
       const errors = []
       if (!this.$v.email.$dirty) return errors
-      !this.$v.email.email && errors.push('Keine gültige E-Mail-Adresse')
-      !this.$v.email.required && errors.push('Bitte geben Sie eine E-Mail-Adresse ein')
+      !this.$v.email.email && errors.push(this.$t('site.register.invalid_email_error'))
+      !this.$v.email.required && errors.push(this.$t('site.register.put_email_error'))
       return errors
     },
     passwordErrors () {
       const errors = []
       if (!this.$v.password.$dirty) return errors
       if (!this.regexPassword.test(this.password)){
-        errors.push('Bitte verwenden Sie Klein- und Großbuchstaben, sowie Zahlen und Sonderzeichen')
+        errors.push(this.$t('site.register.requirements_password_error'))
       }
-      !this.$v.password.required && errors.push('Bitte geben Sie ein Passwort ein')
-      !this.$v.password.minLength && errors.push('Bitte geben Sie mehr als 8 Zeichen ein')
+      !this.$v.password.required && errors.push(this.$t('site.register.put_password_error'))
+      !this.$v.password.minLength && errors.push(this.$t('site.register.more_characters_error'))
       return errors
     },
     passwordAgainErrors () {
       const errors = []
       if (!this.$v.passwordAgain.$dirty) return errors
       if (!this.regexPassword.test(this.passwordAgain)){
-        errors.push('Bitte verwenden Sie Klein- und Großbuchstaben, sowie Zahlen und Sonderzeichen')
+        errors.push(this.$t('site.register.requirements_password_error'))
       }
-      !this.$v.passwordAgain.required && errors.push('Bitte geben Sie ein Passwort ein')
+      !this.$v.passwordAgain.required && errors.push(this.$t('site.register.put_password_error'))
       return errors
     },
   },

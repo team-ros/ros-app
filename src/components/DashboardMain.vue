@@ -20,7 +20,7 @@
                         dense
                         hide-details
                         outlined
-                        placeholder="Durchsuchen"
+                        :placeholder="$t('site.dashboard.search')"
                         style="border-top-right-radius: 0px; border-bottom-right-radius: 0px; font-size: 14px"
                     ></v-text-field>
                 </v-col>
@@ -40,11 +40,12 @@
         <v-overlay :value="menuDialog" color="#eee" opacity="1" style=" color:#000;" z-index="300">
             <v-card class="pa-12" color="#eee" flat height="100vh" light width="100vw">
                 <i class="fas fa-arrow-left fa-lg mt-6" @click="menuDialog = false"></i>
-                <h2 class="mb-4 mt-6 headingsize">Ihr Account</h2>
-                <router-link class="blackLink normaltextsize" to="/account"><p>ROS Account bearbeiten</p></router-link>
-                <h2 class="mb-4 mt-12 headingsize">Projektwebsite</h2>
+                <h2 class="mb-4 mt-6 headingsize">{{$t('site.dashboard.account_title')}}
+                </h2>
+                <router-link class="blackLink normaltextsize" to="/account"><p>{{$t('site.dashboard.account_link')}}</p></router-link>
+                <h2 class="mb-4 mt-12 headingsize">{{$t('site.dashboard.project_website')}}</h2>
                 <a href="https://project.ros-cloud.at/"><p class="blackLink normaltextsize">ROS Cloud</p></a>
-                <h2 class="mt-12 mb-4 headingsize">Social Media</h2>
+                <h2 class="mt-12 mb-4 headingsize">{{$t('site.dashboard.socials')}}</h2>
                 <a class="blackLink" href="https://www.instagram.com/ros_cloud/"><i
                     class="fab fa-instagram"
                     style="float: left; margin-right: 5px; margin-top: 3px"></i>
@@ -57,11 +58,11 @@
                 ><i class="fab fa-linkedin-in" style="float: left; margin-right: 5px; margin-top: 3px"></i>
                     <p class="normaltextsize">LinkedIn</p></a
                 >
-                <h2 class="mt-12 mb-4 headingsize"> Hilfe </h2>
-                <router-link class="blackLink normaltextsize" to="/impressum"><p>Impressum</p></router-link>
+                <h2 class="mt-12 mb-4 headingsize"> {{$t('site.dashboard.help')}} </h2>
+                <router-link class="blackLink normaltextsize" to="/impressum"><p>{{$t('site.dashboard.imprint')}}</p></router-link>
                 <router-link class="blackLink normaltextsize" to="/support"><p>Support</p></router-link>
-                <a class="blackLink" href="https://www.google.com/">
-                    <p class="normaltextsize">DSGVO</p></a>
+                <a class="blackLink" href="https://www.ros-cloud.at/impressum/">
+                    <p class="normaltextsize">{{$t('site.dashboard.dsgvo')}}</p></a>
             </v-card>
         </v-overlay>
 
@@ -78,8 +79,7 @@
                 </v-col>
                 <v-col class="col-10 pr-2">
                     <v-btn @click="insertFile" v-if="moveFile" style="float: right" small  class="my-4" color="#0044b2" depressed outlined>
-                        Hierher verschieben
-                    </v-btn>
+                      {{$t('site.dashboard.move_to')}}                    </v-btn>
 
                 </v-col>
                 <v-col class="col-12">
@@ -104,35 +104,34 @@
         <!-- ==== DIALOGS  ==== -->
         <v-dialog v-model="fileDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card color="#eee" style="padding: 20px!important;">
-                <h3 class="mb-4">OPTIONEN</h3>
-                <v-btn @click="downloadEntry" block class="my-4" color="#0044b2" depressed outlined>Herunterladen
+                <h3 class="mb-4">{{$t('site.dashboard.options')}}</h3>
+                <v-btn @click="downloadEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.download')}}
                 </v-btn>
-                <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
-                <v-btn @click="moveEntry" block class="my-4" color="#0044b2" depressed outlined>Verschieben</v-btn>
-                <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
+                <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.delete')}}</v-btn>
+                <v-btn @click="moveEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.move')}}</v-btn>
+                <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.rename')}}</v-btn>
             </v-card>
         </v-dialog>
 
         <v-dialog v-model="folderDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card color="#eee" style="padding: 20px!important;">
-                <h3 class="mb-4">OPTIONEN</h3>
-                <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>Löschen</v-btn>
-                <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>Umbenennen</v-btn>
+                <h3 class="mb-4">{{$t('site.dashboard.options')}}</h3>
+                <v-btn @click="deleteEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.delete')}}</v-btn>
+                <v-btn @click="renameEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.rename')}}</v-btn>
             </v-card>
         </v-dialog>
 
         <v-dialog v-model="filterDialog" class="fileoption" fullscreen transition="dialog-bottom-transition">
             <v-card class="pa-8" color="#eee" style="padding: 20px!important;">
-                <h3 class="mb-4">SORTIERE NACH</h3>
+                <h3 class="mb-4">{{$t('site.dashboard.sort')}}</h3>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterName">Name</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined>Datum</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterType">Dateityp</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterSize">Dateigröße</v-btn>
+                <v-btn block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.date')}}</v-btn>
+                <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterType">{{$t('site.dashboard.type')}}</v-btn>
+                <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterSize">{{$t('site.dashboard.size')}}</v-btn>
             </v-card>
         </v-dialog>
         <v-snackbar v-model="uploadError" :timeout="2000" color="error">
-            Die Datei ist zu groß.
-        </v-snackbar>
+          {{$t('site.dashboard.size_error')}}        </v-snackbar>
         <v-snackbar v-model="error" :timeout="3210 " color="error">
             {{ errorMessage }}
         </v-snackbar>
@@ -203,7 +202,7 @@ export default {
                     .then(function (response) {
                         if (response.status === false) {
                             self.error = true
-                            self.errorMessage = "Die Datei konnte nicht hochgeladen werden."
+                            self.errorMessage = this.$t('site.dashboard.upload_error')
                         }
                         self.showFolderContent(self.currentParentID)
                     })
@@ -216,14 +215,14 @@ export default {
         // testweise API Call für den Ordner erstellen
         async createFolder() {
             let self = this
-            let name = window.prompt("Bitte geben Sie einen Ordnernamen an:", "Neuer Ordner");
+            let name = window.prompt(this.$t('site.dashboard.folder_name'), this.$t('site.dashboard.folder_placeholder'));
 
             if (name) {
                 api.object().createDir(name, this.currentParentID)
                     .then(function (response) {
                         if (response.status === false) {
                             self.error = true
-                            self.errorMessage = "Diesen Ordner gibt es schon."
+                            self.errorMessage = this.$t('site.dashboard.folder_exists')
                         }
                         self.showFolderContent(self.currentParentID)
                     })
@@ -246,14 +245,11 @@ export default {
             let response
             if (!id) {
                 response = await api.object().get()
-                console.log("NEIN")
             } else {
                 response = await api.object().get(this.currentParentID)
-                console.log("JA")
             }
             this.responseLoaded = true
             this.response = response.listing
-            console.log(response)
         },
 
         async goBack() {
@@ -275,12 +271,11 @@ export default {
 
         async renameEntry() {
             const self = this
-            let name = window.prompt("Bitte geben Sie einen neuen Dateinamen an:", this.selectedFile.name);
+            let name = window.prompt(this.$t('site.dashboard.file_name'), this.selectedFile.name);
 
             if (name) {
                 api.object().move(this.selectedFile.id, this.currentParentID, name)
                     .then(function () {
-                        console.log("RENAMED")
                         self.showFolderContent(self.currentParentID);
                         self.fileDialog = false;
                     })
@@ -390,7 +385,6 @@ export default {
             try {
                 const response = await api.object().search(this.search);
                 this.response = response.listing
-                console.log("JETZT")
             } catch (err) {
                 console.log(err)
             }

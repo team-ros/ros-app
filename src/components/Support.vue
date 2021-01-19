@@ -11,10 +11,9 @@
             <p class="mb-1" style="margin-top: -35px">
             </p>
             <div class="mt-12 normaltextsize">
-                Wenn Sie Hilfe brauchen wenden Sie sich bitte an den Support!
-            </div>
+              {{$t('site.support.description')}}            </div>
             <v-btn class="mt-12 rosblue" block depressed
-            > <a style="color: #eeeeee" href="mailto:support@ros-cloud.at">E-MAIL AN DEN SUPPORT </a>
+            > <a style="color: #eeeeee" href="mailto:support@ros-cloud.at">{{$t('site.support.support_button')}} </a>
             </v-btn>
 
         </v-col>
