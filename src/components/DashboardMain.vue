@@ -125,8 +125,6 @@
             <v-card class="pa-8" color="#eee" style="padding: 20px!important;">
                 <h3 class="mb-4">{{$t('site.dashboard.sort')}}</h3>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterName">Name</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.date')}}</v-btn>
-                <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterType">{{$t('site.dashboard.type')}}</v-btn>
                 <v-btn block class="my-4" color="#0044b2" depressed outlined @click="filterSize">{{$t('site.dashboard.size')}}</v-btn>
             </v-card>
         </v-dialog>
@@ -202,7 +200,7 @@ export default {
                     .then(function (response) {
                         if (response.status === false) {
                             self.error = true
-                            self.errorMessage = this.$t('site.dashboard.upload_error')
+                            self.errorMessage = self.$t('site.dashboard.upload_error')
                         }
                         self.showFolderContent(self.currentParentID)
                     })
@@ -222,7 +220,7 @@ export default {
                     .then(function (response) {
                         if (response.status === false) {
                             self.error = true
-                            self.errorMessage = this.$t('site.dashboard.folder_exists')
+                            self.errorMessage = self.$t('site.dashboard.folder_exists')
                         }
                         self.showFolderContent(self.currentParentID)
                     })
@@ -356,14 +354,6 @@ export default {
             });
             this.filterDialog = false;
         },
-        filterType: function () {
-            this.response.sort(function (a, b) {
-                let fileA = a.filetype.toLowerCase();
-                let fileB = b.filetype.toLowerCase();
-                return (fileA < fileB) ? -1 : (fileA > fileB) ? 1 : 0;
-            });
-            this.filterDialog = false;
-        },
         filterSize: function () {
             this.response.sort(function (a, b) {
                 let fileA = a.size;
@@ -413,7 +403,7 @@ export default {
 
 .v-dialog, .v-dialog--fullscreen {
 
-    height: 40% !important;
+    height: 28% !important;
     top: auto;
     bottom: 0px !important;
 

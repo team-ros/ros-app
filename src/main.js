@@ -12,7 +12,7 @@ Vue.use(vueFilterPrettyBytes)
 
 export const i18n = new VueI18n({
   //locale: navigator.language,
-  locale: 'en',
+  locale: 'de',
   messages
 });
 
