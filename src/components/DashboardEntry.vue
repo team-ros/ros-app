@@ -5,7 +5,7 @@
 
             <div @click="$emit('openOptions',entry)" style="display: flex; align-items: center;" v-if="entry.type === 'file'">
                 <div style="width: 80%; display: flex; align-items: center; justify-content: center">
-                    <div style="width: 13%" v-html="icon"></div>
+                    <div style="width: 13%; margin-top: 10px" v-html="icon"></div>
                     <div style="width: 87%">
                         <span class="filenamesize">{{
                                 entry.name
@@ -22,7 +22,7 @@
 
             <div style="display: flex; align-items: center;" v-else>
                 <div @click="$emit('openFolder',entry.id)" style="width: 85%; display: flex; align-items: center; justify-content: center">
-                    <div style="width: 13%" v-html="icon"></div>
+                    <div style="width: 13%;  margin-top: 10px" v-html="icon"></div>
                     <div style="width: 87%">
                         <span class="filenamesize">{{
                                 entry.name
