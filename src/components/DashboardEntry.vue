@@ -3,38 +3,34 @@
         <div class="pa-3">
 
 
-            <div @click="$emit('openOptions',entry)" style="display: flex;" v-if="entry.type === 'file'">
-                <div  style="flex: 80%;">
-                    <div style="float: left; width: 40px; margin-left: 5px" v-html="icon"></div>
-                    <div style="margin-top: 2px!important; display: block;">
-                        <p class="filenamesize">{{
-                                entry.name
-                            }} </p>
-                    </div>
-                </div>
-                <div style="flex: 20%">
-                    <span style=" margin-top: 4px!important; float: right;"
-                          class="filenamesize">{{
-                        entry.size | prettyBytes
-                        }} </span>
-                    <div style="clear: both"></div>
-                </div>
-            </div>
-
-
-            <div style="display: flex;" v-else>
-                <div @click="$emit('openFolder',entry.id)" style="width: 100%">
-                    <div style="width: 40px; float: left; margin-left: 5px" v-html="icon">
-                    </div>
-                    <div style=" margin-top: 2px!important;float: left;flex: 80%">
+            <div @click="$emit('openOptions',entry)" style="display: flex; align-items: center;" v-if="entry.type === 'file'">
+                <div style="width: 80%; display: flex; align-items: center; justify-content: center">
+                    <div style="width: 13%" v-html="icon"></div>
+                    <div style="width: 87%">
                         <span class="filenamesize">{{
                                 entry.name
                             }} </span>
                     </div>
                 </div>
-                <div @click="$emit('openOptions',entry)" style="flex: 20%">
-                    <i class="fas fa-ellipsis-h fa-lg" style="float:right; margin-top: 4px!important"></i>
-                    <div style="clear: both"></div>
+                <div style="width: 20%; display: flex; align-items: center; justify-content: flex-end ">
+                    <span class="filenamesize">{{
+                        entry.size | prettyBytes
+                        }} </span>
+                </div>
+            </div>
+
+
+            <div style="display: flex; align-items: center;" v-else>
+                <div @click="$emit('openFolder',entry.id)" style="width: 85%; display: flex; align-items: center; justify-content: center">
+                    <div style="width: 13%" v-html="icon"></div>
+                    <div style="width: 87%">
+                        <span class="filenamesize">{{
+                                entry.name
+                            }} </span>
+                    </div>
+                </div>
+                <div @click="$emit('openOptions',entry)" style="width: 15%; display: flex; align-items: center; justify-content: flex-end ">
+                    <i class="fas fa-ellipsis-h fa-lg"></i>
                 </div>
             </div>
 

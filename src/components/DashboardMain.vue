@@ -3,7 +3,7 @@
         <v-container style="position: fixed; top:0; background-color:#eee!important">
             <!-- ==== HEADER  ==== -->
             <v-row>
-                <v-col class="col-12 px-6">
+                <v-col class="col-12 px-6 pt-8">
                     <div style="width: 100%; color: #0044b2;">
                         <span style="font-weight: 700; font-size: 18px">ROS</span>
                         <span style="float: right " @click="menuDialog=true"> <i
@@ -33,6 +33,19 @@
                            @click="openFilter()"><i
                         class="fas fa-filter"
                         style="color: #0044b2;font-size: 17px"></i></v-btn>
+                </v-col>
+                <v-col class="col-2">
+                    <v-btn v-if="parentIDStorage.length !== 0" small color="#0044b2" depressed outlined>
+                        <i  class="fas fa-arrow-left backarrow-blue" @click="goBack"></i>
+                    </v-btn>
+                    <v-btn color="#bdbdbd" v-else small depressed outlined>
+                        <i  class="fas fa-arrow-left"></i>
+                    </v-btn>
+                </v-col>
+                <v-col class="col-10 ">
+                    <v-btn @click="insertFile" v-if="moveFile" style="float: right" small color="#0044b2" depressed outlined>
+                        {{$t('site.dashboard.move_to')}}                    </v-btn>
+
                 </v-col>
             </v-row>
         </v-container>
@@ -67,21 +80,8 @@
         </v-overlay>
 
         <!-- ==== BODY  ==== -->
-        <v-container class="pa-0 " style="margin-bottom: 100px!important; margin-top: 105px">
+        <v-container class="pa-0 " style="margin-bottom: 100px!important; margin-top: 180px">
             <v-row no-gutters>
-                <v-col style="height: 62.5px"  class="col-2">
-                    <v-btn v-if="parentIDStorage.length !== 0" style="float: right" small  class="my-4" color="#0044b2" depressed outlined>
-                        <i  class="fas fa-arrow-left backarrow-blue" @click="goBack"></i>
-                    </v-btn>
-                    <v-btn color="#bdbdbd" v-else style="float: right" small class="my-4" depressed outlined>
-                        <i  class="fas fa-arrow-left"></i>
-                    </v-btn>
-                </v-col>
-                <v-col class="col-10 pr-2">
-                    <v-btn @click="insertFile" v-if="moveFile" style="float: right" small  class="my-4" color="#0044b2" depressed outlined>
-                      {{$t('site.dashboard.move_to')}}                    </v-btn>
-
-                </v-col>
                 <v-col class="col-12">
                     <table width="100%">
                         <tr v-for="entry in response" :key="entry.id">
@@ -102,7 +102,7 @@
         </v-container>
 
         <!-- ==== DIALOGS  ==== -->
-        <v-dialog v-model="fileDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+        <v-dialog id="test" v-model="fileDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
             <v-card color="#eee" style="padding: 20px!important;">
                 <h3 class="mb-4">{{$t('site.dashboard.options')}}</h3>
                 <v-btn @click="downloadEntry" block class="my-4" color="#0044b2" depressed outlined>{{$t('site.dashboard.download')}}
@@ -239,21 +239,37 @@ export default {
                 this.currentParentID = id
             }
 
-            console.log(this.currentParentID)
+            let self = this;
             let response
             if (!id) {
-                response = await api.object().get()
+                api.object().get()
+                    .then(function (res){
+                        response = res
+                        if(goBack){
+                            self.parentIDStorage.pop()
+                        }
+                        self.responseLoaded = true
+                        self.$nextTick(() => {
+                            self.response = response.listing
+                        })
+                    })
             } else {
-                response = await api.object().get(this.currentParentID)
+               api.object().get(this.currentParentID)
+                .then(function (res){
+                    response = res
+                    if(goBack){
+                        self.parentIDStorage.pop()
+                    }
+                    self.responseLoaded = true
+                    self.$nextTick(() => {
+                        self.response = response.listing
+                    })
+                })
             }
-            this.responseLoaded = true
-            this.response = response.listing
         },
 
         async goBack() {
-
             this.showFolderContent(this.parentIDStorage[this.parentIDStorage.length - 1], true)
-            this.parentIDStorage.pop()
         },
 
         async deleteEntry() {
@@ -276,6 +292,7 @@ export default {
                     .then(function () {
                         self.showFolderContent(self.currentParentID);
                         self.fileDialog = false;
+                        self.folderDialog = false;
                     })
                     .catch(err => console.log(err))
             }
@@ -403,7 +420,7 @@ export default {
 
 .v-dialog, .v-dialog--fullscreen {
 
-    height: 28% !important;
+    height: 40% !important;
     top: auto;
     bottom: 0px !important;
 
