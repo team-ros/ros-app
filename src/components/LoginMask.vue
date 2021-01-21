@@ -71,7 +71,7 @@
                             <span class="footer">
                 |
               </span>
-                            <a href="https://www.ros-cloud.at/impressum" class="smalltextsize linkinblack">
+                            <a href="https://www.ros-cloud.at/dsgvo" class="smalltextsize linkinblack">
                                 <span> {{ $t('site.login.dsgvo') }} </span>
                             </a>
                         </div>
