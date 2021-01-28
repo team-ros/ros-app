@@ -74,7 +74,7 @@
                 <h2 class="mt-12 mb-4 headingsize"> {{$t('site.dashboard.help')}} </h2>
                 <router-link class="blackLink normaltextsize" to="/impressum"><p>{{$t('site.dashboard.imprint')}}</p></router-link>
                 <router-link class="blackLink normaltextsize" to="/support"><p>Support</p></router-link>
-                <a class="blackLink" href="https://www.ros-cloud.at/impressum/">
+                <a class="blackLink" href="https://www.ros-cloud.at/dsgvo/">
                     <p class="normaltextsize">{{$t('site.dashboard.dsgvo')}}</p></a>
             </v-card>
         </v-overlay>
